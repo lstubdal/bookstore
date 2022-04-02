@@ -1,0 +1,30 @@
+:root {
+
+    /* font */
+    --main-font: 'Inconsolata', monospace;
+
+    /* color */
+    --main: #4E4D4D;
+    --highlight: #C21010;
+    --dark: #000;
+    --light: #fff;
+
+    /* spacing */
+    --xsmall: 50px;
+    --small: 70px;
+    --medium: 90px;
+    --large: 100px;
+    --xlarge: 170px;
+    --superlarge: 230px;
+
+    /* font weight */
+    --title: 700;
+    --undertitle: 600;
+    --body: 400;
+    --details: 200;
+
+    /* line border */
+    --normal: 1px;
+    --large: 2px;
+
+}
