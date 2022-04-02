@@ -1,7 +1,7 @@
-import HomeView from './views/HomeView.vue';
+import FrontpageView from './views/FrontpageView.vue';
 
 export default [
-	{ name: 'home', 		path: '/', 					component: HomeView },
+	{ name: 'frontpage', 		path: '/', 					component: FrontpageView },
 
 ];
 

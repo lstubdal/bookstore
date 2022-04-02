@@ -1,14 +1,14 @@
 <template>
-    <Home />
+    <Frontpage />
 </template>
 
 <script>
-    import Home from '../components/Home.vue';
+    import Frontpage from '../components/Frontpage.vue';
 
 
     export default {
         components: {
-            Home
+            Frontpage
         }
     }
 </script>
