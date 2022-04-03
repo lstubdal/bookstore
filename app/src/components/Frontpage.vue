@@ -1,8 +1,8 @@
 <template>
-    <div v-if="loading">Loading books...</div> 
+    <div v-if="loading" class="loadingPage">Loading books...</div> 
     <div v-else class="frontpage">
        <Header />
-       
+
        <section class="frontpage__genres">
            <!-- remeber add routerlink to genresFullpage -->
            <div v-for="genre in genres" class="frontpage__genre">{{ genre.name }}</div>
@@ -154,6 +154,16 @@
 </script>
 
 <style>
+    .loadingPage {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 5em;
+        color: var(--highlight);
+        font-family: var(--main-font);
+    }
     .frontpage {
         display: flex;
         flex-direction: column;
