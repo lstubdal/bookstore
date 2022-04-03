@@ -2,11 +2,7 @@
     <div v-if="loading" class="loadingPage">Loading books...</div> 
     <div v-else class="frontpage">
        <Header />
-
-       <section class="frontpage__genres">
-           <!-- remeber add routerlink to genresFullpage -->
-           <div v-for="genre in genres" class="frontpage__genre">{{ genre.name }}</div>
-        </section>
+       <Genres :genreList="genres"/>
 
         <main class="frontpage__main">
             <section class="frontpage__news">
@@ -56,6 +52,7 @@
 
 <script>
     import Header from '../components/Header.vue';
+    import Genres from '../components/Genres.vue';
     import Footer from '../components/Footer.vue';
 
     import sanityClient from '@sanity/client';
@@ -81,6 +78,7 @@
 
         components: {
             Header,
+            Genres,
             Footer
         },
 
@@ -172,22 +170,6 @@
         border: var(--default);
         margin: var(--small);
         font-family: var(--main-font);
-    }
-
-    .frontpage__genres {
-        height: 12vh;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-bottom: var(--default);
-        padding: var(--padding-small);
-    }
-
-    .frontpage__genre {
-        padding: var(--padding-medium);
-        font-size: 1.5em;
-        font-weight: var(--body);
     }
 
     .frontpage__main {
