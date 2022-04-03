@@ -45,6 +45,12 @@ export default {
             title: 'Price',
             name: 'price',
             type: 'number'
+        },
+        {
+            // to calculate most popular on frontpage
+            title: 'Total sold (set default 0, updated from /app/cart)',
+            name: 'totalSold',
+            type: 'number'
         }
     ]
 }
