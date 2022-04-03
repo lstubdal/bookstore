@@ -52,7 +52,7 @@
 
 <script>
     import Header from '../components/Header.vue';
-    import Genres from '../components/Genres.vue';
+    import Genres from './GenresNavigation.vue';
     import Footer from '../components/Footer.vue';
 
     import sanityClient from '@sanity/client';
@@ -84,7 +84,14 @@
 
         async created() {
             const booksQuery = `*[_type == "book"]` // access all books
-            const genresQuery = `*[_type == "genre"]`
+            const genresQuery = `
+                *[_type == "genre"]{
+                    name,
+
+                    slug {
+                        current
+                    }
+                }`
 
             // find the newest books based on published year, newest first 
             const latestNewsQuery = ` 
@@ -129,8 +136,8 @@
                     slug {
                         current
                     }
-                }
-            `
+                }`
+                
             // store data from sanity in arrays
             this.books = await sanity.fetch(booksQuery); 
             this.genres = await sanity.fetch(genresQuery); 
@@ -173,6 +180,7 @@
     }
 
     .frontpage__main {
+        margin-bottom: var(--margin-xlarge);
         width: 100%;
     }
 

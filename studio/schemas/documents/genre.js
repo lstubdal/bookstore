@@ -8,15 +8,14 @@ export default {
             name: 'name',
             type: 'string',
         },
-  /*       {
-            // unødvendig 
-            title: 'Books',
-            name: 'books',
-            type: 'array',
-            of: [{ 
-                type: 'reference',
-                to: [{ type: 'book' }]
-            }]
-        } */
+        {
+            title: 'Slug',
+            name: 'slug',
+            type: 'slug',
+            options: {
+                source: 'name',
+                maxLength: 200
+            }
+        }
     ]
 }

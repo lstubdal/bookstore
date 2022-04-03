@@ -1,12 +1,11 @@
 <template>
-    <h1>FULL BOOK PAGE</h1>
+    GENRE BOOKS page
 </template>
 
 <script>
+export default {
 
-    export default {
-
-    }
+}
 </script>
 
 <style>
