@@ -11,23 +11,33 @@
             <section class="frontpage__news">
                 <h2>LATEST NEWS</h2>
 
-                <div v-for="(book,index) in latestNews">
-                    <div v-if="index < maxPreviewBooks" class="preview">
+                <div v-for="(book,index) in latestNews" @mouseover="this.hover = true" @mouseleave="this.hover = false">
+                    <div v-if="index < maxPreviewBooks" class="preview" >
                         <h3 class="preview__title">{{ book.title }}</h3>
                         <p class="preview__author">{{ book.author.name }}</p>
                         <img :src="book.bookCover.asset.url" alt="book cover" class="preview__image">
                         <p class="preview__price">{{ book.price }},-</p>
+
+                        <button v-show="hover" class="preview__hover">
+                            <p>add to cart</p>
+                            <img src="/icons/cart-small.svg" alt="mini cart icon">
+                        </button>
                     </div>
                 </div>
             </section>
 
-            <section class="frontpage__popular">
-                <div v-for="(book, index) in mostPopular">
-                    <div v-if="index < maxPreviewBooks" class="preview">
+            <section class="frontpage__popular" >
+                <div v-for="(book, index) in mostPopular" @mouseover="this.hover = true" @mouseleave="this.hover = false">
+                    <div v-if="index < maxPreviewBooks" class="preview" >
                         <h3 class="preview__title">{{ book.title }}</h3>
                         <p class="preview__author">{{ book.author.name }}</p>
                         <img :src="book.bookCover.asset.url" alt="book cover" class="preview__image">
                         <p class="preview__price">{{ book.price }},-</p>
+
+                        <button v-show="hover" class="preview__hover">
+                            <p>add to cart</p>
+                            <img src="/icons/cart-small.svg" alt="mini cart icon">
+                        </button>
                     </div>
                 </div>
 
@@ -58,7 +68,8 @@
                 genres: null,
                 latestNews: [],
                 mostPopular: [],
-                maxPreviewBooks: 4 // limit to 4 books on frontpage
+                maxPreviewBooks: 4, // limit to 4 books on frontpage
+                hover: false
             }
         },
 
@@ -90,6 +101,7 @@
                     price
                 }`
 
+            // find the most popular books based on total sold value
             const mostPopularQuery = `
                 *[_type == 'book'] | order(totalSold desc) {
                     title,
@@ -107,7 +119,6 @@
                     price
                 }
             `
-
             // store data from sanity in arrays
             this.books = await sanity.fetch(booksQuery); 
             this.genres = await sanity.fetch(genresQuery); 
@@ -118,7 +129,6 @@
         },
 
         computed: {
-     
             findMostPopular() {
                 // update based on sold variable
             },
@@ -142,11 +152,11 @@
     }
 
     .frontpage__genres {
+        height: 12vh;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 12vh;
-        width: 100%;
         border-bottom: var(--default);
         padding: var(--padding-small);
     }
@@ -163,6 +173,7 @@
 
     .frontpage__news, 
     .frontpage__popular {
+        position: relative;
         display: flex;
         padding: var(--padding-medium);
     }
@@ -187,7 +198,12 @@
     .preview {
         height: 300px;
         width: 210px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         margin: var(--margin-large);
+        cursor: pointer;
     }
 
     .preview__title {
@@ -208,9 +224,32 @@
     }
 
     .preview__price {
-        width: 80%;
         font-size: 1.3em;
         color: var(--main);
         text-align: center;
+        padding: var(--padding-small);
     }
+
+    .preview__hover {
+        height: 8%;
+        width: 10%;
+        position: absolute;
+        bottom: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        background: transparent;
+        color: var(--highlight);
+        border-left: none;
+        border-right: none;
+        border-top: var(--default);
+        border-bottom: var(--default);
+        border-color: var(--main);
+        cursor: pointer;
+    }
+
+    .preview__hover p {
+        font-size: 1.5em;
+    }
+
 </style>
