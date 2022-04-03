@@ -23,6 +23,7 @@
 
 <style>
     .header {
+        position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -37,8 +38,13 @@
     }
 
     .cart {
+        position: absolute;
+        right: 0;
+        height: 100%;
         display: grid;
         grid-template-columns: repeat(2, 33%);
         align-items: center;
+        padding: var(--padding-medium) 0% var(--padding-medium) var(--padding-medium) ;
+        border-left: var(--default);
     }
 </style>

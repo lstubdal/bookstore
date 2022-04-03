@@ -34,11 +34,13 @@
                 <h2>MOST POPULAR</h2>
             </section>
         </main>
+        <Footer />
     </div>
 </template>
 
 <script>
     import Header from '../components/Header.vue';
+    import Footer from '../components/Footer.vue';
 
     import sanityClient from '@sanity/client';
     const sanity = sanityClient({ // create new sanityClient
@@ -61,7 +63,8 @@
         },
 
         components: {
-            Header
+            Header,
+            Footer
         },
 
         async created() {

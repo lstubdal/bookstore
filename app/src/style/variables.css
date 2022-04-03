@@ -17,7 +17,7 @@
     /* margin */
     --margin-small: 1%;
     --margin-medium: 3%;
-    --margin-large: 25px;
+    --margin-large: 23px;
 
 
     /* spacing */
@@ -32,10 +32,10 @@
     --title: 700;
     --undertitle: 600;
     --body: 400;
-    --details: 200;
+    --details: 100;
 
     /* border */
     --default: 1px solid var(--dark);
-    --large: 2px;
+    --large-border: 2px solid var(--dark);
 
 }
