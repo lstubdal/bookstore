@@ -11,10 +11,14 @@
 
     /* padding */
     --padding-small: 1%;
-    --padding-normal: 3%;
+    --padding-medium: 3%;
+    --padding-large: 5%;
 
     /* margin */
     --margin-small: 1%;
+    --margin-medium: 3%;
+    --margin-large: 25px;
+
 
     /* spacing */
     --xsmall: 50px;
@@ -30,8 +34,8 @@
     --body: 400;
     --details: 200;
 
-    /* line border */
-    --normal: 1px;
+    /* border */
+    --default: 1px solid var(--dark);
     --large: 2px;
 
 }

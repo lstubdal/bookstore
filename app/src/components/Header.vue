@@ -28,7 +28,7 @@
         align-items: center;
         height: 20vh;
         width: 100%;
-        border-bottom: var(--normal) solid var(--dark);
+        border-bottom: var(--default);
     }
 
     .header__title {

@@ -1,0 +1,4 @@
+- routerlink
+- genres fullpage (ruterlink)
+- bookpreview comp
+- book comp
