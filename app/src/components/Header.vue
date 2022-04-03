@@ -24,6 +24,11 @@
 <style>
     .header {
         display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 20vh;
+        width: 100%;
+        border-bottom: var(--normal) solid var(--dark);
     }
 
     .header__title {

@@ -9,6 +9,13 @@
     --dark: #000;
     --light: #fff;
 
+    /* padding */
+    --padding-small: 1%;
+    --padding-normal: 3%;
+
+    /* margin */
+    --margin-small: 1%;
+
     /* spacing */
     --xsmall: 50px;
     --small: 70px;
