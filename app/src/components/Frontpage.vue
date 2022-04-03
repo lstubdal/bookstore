@@ -2,6 +2,7 @@
     <div v-if="loading">Loading books...</div> 
     <div v-else class="frontpage">
        <Header />
+       
        <section class="frontpage__genres">
            <!-- remeber add routerlink to genresFullpage -->
            <div v-for="genre in genres" class="frontpage__genre">{{ genre.name }}</div>
@@ -12,13 +13,15 @@
                 <h2>LATEST NEWS</h2>
 
                 <div v-for="(book,index) in latestNews" @mouseover="this.hover = true" @mouseleave="this.hover = false">
-                    <div v-if="index < maxPreviewBooks" class="preview" >
-                        <h3 class="preview__title">{{ book.title }}</h3>
-                        <p class="preview__author">{{ book.author.name }}</p>
-                        <img :src="book.bookCover.asset.url" alt="book cover" class="preview__image">
-                        <p class="preview__price">{{ book.price }},-</p>
+                    <div v-if="index < maxPreviewBooks">
+                        <RouterLink :to="{ name: 'book', params: { book_slug: book.slug.current }}" class="preview">
+                            <h3 class="preview__title">{{ book.title }}</h3>
+                            <p class="preview__author">{{ book.author.name }}</p>
+                            <img :src="book.bookCover.asset.url" alt="book cover" class="preview__image">
+                            <p class="preview__price">{{ book.price }},-</p>
+                        </RouterLink>
 
-                        <button v-show="hover" class="preview__hover">
+                        <button v-show="hover" class="preview__hover" @click="addToCart">
                             <p>add to cart</p>
                             <img src="/icons/cart-small.svg" alt="mini cart icon">
                         </button>
@@ -28,13 +31,15 @@
 
             <section class="frontpage__popular" >
                 <div v-for="(book, index) in mostPopular" @mouseover="this.hover = true" @mouseleave="this.hover = false">
-                    <div v-if="index < maxPreviewBooks" class="preview" >
-                        <h3 class="preview__title">{{ book.title }}</h3>
-                        <p class="preview__author">{{ book.author.name }}</p>
-                        <img :src="book.bookCover.asset.url" alt="book cover" class="preview__image">
-                        <p class="preview__price">{{ book.price }},-</p>
+                    <div v-if="index < maxPreviewBooks" >
+                        <RouterLink :to="{ name: 'book', params: { book_slug: book.slug.current }}" class="preview"> 
+                            <h3 class="preview__title">{{ book.title }}</h3>
+                            <p class="preview__author">{{ book.author.name }}</p>
+                            <img :src="book.bookCover.asset.url" alt="book cover" class="preview__image">
+                            <p class="preview__price">{{ book.price }},-</p>
+                        </RouterLink>
 
-                        <button v-show="hover" class="preview__hover">
+                        <button v-show="hover" class="preview__hover" @click="addToCart">
                             <p>add to cart</p>
                             <img src="/icons/cart-small.svg" alt="mini cart icon">
                         </button>
@@ -44,6 +49,7 @@
                 <h2>MOST POPULAR</h2>
             </section>
         </main>
+
         <Footer />
     </div>
 </template>
@@ -92,13 +98,17 @@
                         name
                     },
 
-                    bookCover{
+                    bookCover {
                         asset-> {
                             url
                         }
                     },
 
-                    price
+                    price,
+
+                    slug {
+                        current
+                    }
                 }`
 
             // find the most popular books based on total sold value
@@ -116,7 +126,11 @@
                         }
                     },
 
-                    price
+                    price,
+
+                    slug {
+                        current
+                    }
                 }
             `
             // store data from sanity in arrays
@@ -129,12 +143,11 @@
         },
 
         computed: {
-            findMostPopular() {
-                // update based on sold variable
-            },
+        },
 
-            getRandomIndex() {
-                return Math.floor(Math.random()*10) // return random integer
+        methods: {
+            addToCart() {
+                window.alert('added')
             }
         }
     }
@@ -203,11 +216,13 @@
         justify-content: center;
         align-items: center;
         margin: var(--margin-large);
+        text-decoration: none;
         cursor: pointer;
     }
 
     .preview__title {
         font-size: 1.3em;
+        color: var(--dark);
         padding-bottom: var(--padding-small);
     }
 
@@ -232,12 +247,13 @@
 
     .preview__hover {
         height: 8%;
-        width: 10%;
+        width: 12%;
         position: absolute;
         bottom: 20;
         display: flex;
         align-items: center;
         justify-content: space-evenly;
+        margin-left: 3.8%;
         background: transparent;
         color: var(--highlight);
         border-left: none;

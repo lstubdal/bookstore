@@ -1,4 +1,6 @@
 - routerlink
 - genres fullpage (ruterlink)
-- bookpreview comp
+- bookpreview comp?
 - book comp
+- localStorage
+- add ot cart

@@ -11,7 +11,7 @@ const app_store = createStore(store);
 const app_router = createRouter({
 	routes: routes,
 	history: createWebHistory(),
-	scrollBehavior(to, from, savedPosition) {		
+	scrollBehavior(to, from, savedPosition) { //scroll to top of page when previewbook is clicked
 		return { left: 0, top: 0 };
 	  }
 })

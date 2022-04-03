@@ -47,6 +47,15 @@ export default {
             type: 'number'
         },
         {
+            title: 'Slug',
+            name: 'slug',
+            type: 'slug',
+            options: {
+                source: 'title',
+                maxLength: 200,
+            }
+        },
+        {
             // to calculate most popular on frontpage
             title: 'Total sold (set default 0, updated from /app/cart)',
             name: 'totalSold',
