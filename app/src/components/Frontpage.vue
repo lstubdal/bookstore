@@ -20,6 +20,19 @@
                     </div>
                 </div>
             </section>
+
+            <section class="frontpage__popular">
+                <div v-for="(book, index) in mostPopular">
+                    <div v-if="index < maxPreviewBooks" class="preview">
+                        <h3 class="preview__title">{{ book.title }}</h3>
+                        <p class="preview__author">{{ book.author.name }}</p>
+                        <img :src="book.bookCover.asset.url" alt="book cover" class="preview__image">
+                        <p class="preview__price">{{ book.price }},-</p>
+                    </div>
+                </div>
+
+                <h2>MOST POPULAR</h2>
+            </section>
         </main>
     </div>
 </template>
@@ -53,6 +66,7 @@
 
         async created() {
             const booksQuery = `*[_type == "book"]` // access all books
+            const genresQuery = `*[_type == "genre"]`
 
             // find the newest books based on published year, newest first 
             const latestNewsQuery = ` 
@@ -73,17 +87,31 @@
                     price
                 }`
 
-            const genresQuery = `*[_type == "genre"]`
+            const mostPopularQuery = `
+                *[_type == 'book'] | order(totalSold desc) {
+                    title,
+  
+                    author-> {
+                        name
+                    },
+
+                    bookCover{
+                        asset-> {
+                            url
+                        }
+                    },
+
+                    price
+                }
+            `
 
             // store data from sanity in arrays
             this.books = await sanity.fetch(booksQuery); 
-            this.latestNews = await sanity.fetch(latestNewsQuery);
             this.genres = await sanity.fetch(genresQuery); 
+            this.latestNews = await sanity.fetch(latestNewsQuery);
+            this.mostPopular = await sanity.fetch(mostPopularQuery);
             
             this.loading = false;
-            
-            console.log(this.books);
-            console.log(this.latestNews)
         },
 
         computed: {
@@ -177,6 +205,7 @@
     }
 
     .preview__price {
+        width: 80%;
         font-size: 1.3em;
         color: var(--main);
         text-align: center;
