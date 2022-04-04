@@ -115,17 +115,34 @@
                     }
                 }`
                 
-            // store data from sanity in arrays
-            this.books = await sanity.fetch(booksQuery); 
-            this.genres = await sanity.fetch(genresQuery); 
-            this.latestNews = await sanity.fetch(latestNewsQuery);
-            this.mostPopular = await sanity.fetch(mostPopularQuery);
-            
+            // fetch data from sanity then commit to store
+            const books = await sanity.fetch(booksQuery); 
+            this.$store.commit('addAllBooks', books);
+
+            const genres = await sanity.fetch(genresQuery); 
+            this.$store.commit('addGenres', genres);
+
+            const news = await sanity.fetch(latestNewsQuery);
+            this.$store.commit('updateLatestNews', news);
+
+            const popular = await sanity.fetch(mostPopularQuery);
+            this.$store.commit('updateMostPopular', popular);
+
             this.loading = false;
         },
 
         computed: {
-           
+            latestNews() {
+                return this.$store.getters.getLatestNews;
+            },
+
+            mostPopular() {
+                return this.$store.getters.getMostPopular;
+            },
+
+            genres() {
+                return this.$store.getters.getGenres;
+            }
         },
 
         
