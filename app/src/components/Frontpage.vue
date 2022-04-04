@@ -1,8 +1,8 @@
 <template>
-    <div v-if="loading" class="loadingPage">Loading books...</div> 
+    <div v-if="loading" class="loadingPage">Loading all the books...</div> 
     <div v-else class="frontpage">
        <Header />
-       <GenresNavigation :genreList="genres"/>
+       <GenresNavigation :genreList="genres"/>  <!-- slow load? -->
 
         <main class="frontpage__main">
             <section class="frontpage__news">
@@ -119,6 +119,8 @@
             const books = await sanity.fetch(booksQuery); 
             this.$store.commit('addAllBooks', books);
 
+            console.log('boooooks', this.allBooks)
+
             const genres = await sanity.fetch(genresQuery); 
             this.$store.commit('addGenres', genres);
 
@@ -142,6 +144,10 @@
 
             genres() {
                 return this.$store.getters.getGenres;
+            },
+            
+            allBooks() {
+                return this.$store.getters.getAllBooks;
             }
         },
 
@@ -160,6 +166,7 @@
         color: var(--highlight);
         font-family: var(--main-font);
     }
+
     .frontpage {
         display: flex;
         flex-direction: column;

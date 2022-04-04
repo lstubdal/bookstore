@@ -4,3 +4,6 @@
 - book comp
 - localStorage
 - add ot cart
+- store
+- responsive
+- fix shoppingcart mouseover

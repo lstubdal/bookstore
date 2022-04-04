@@ -10,6 +10,10 @@ export default {
     },
 
     getters: {
+        getAllBooks(state) {
+            return state.allBooks;
+        },
+
         getLatestNews(state) {
             return state.latestNews;
         },
