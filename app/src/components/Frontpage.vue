@@ -49,6 +49,7 @@
             return {
                 loading: true,
                 maxPreviewBooks: 4, // limit to 4 books on frontpage
+                mailInput: ''
             }
         },
 
@@ -60,7 +61,33 @@
         },
 
         async created() {
-            const booksQuery = `*[_type == "book"]` // access all books
+            const booksQuery = ` 
+                *[_type == 'book'] | order(title asc) {
+                    ...,
+                    
+                    author-> {
+                        name
+                    },
+                    
+                    genre-> {
+                        name
+                    },
+                    
+                    cover {
+                        asset-> {
+                        url
+                        }
+                    },
+
+                    publisher-> {
+                        name
+                    },
+
+                    slug {
+                        current
+                        }
+                    }`
+
             const genresQuery = `
                 *[_type == "genre"]{
                     name,
@@ -80,7 +107,7 @@
                         name
                     },
 
-                    bookCover {
+                    cover {
                         asset-> {
                             url
                         }
@@ -102,7 +129,7 @@
                         name
                     },
 
-                    bookCover{
+                    cover{
                         asset-> {
                             url
                         }
@@ -114,6 +141,21 @@
                         current
                     }
                 }`
+            
+            // test change title yellow book
+            const mutation = `{ 
+                "mutations": [
+                    {
+                    "patch": {
+                        "id": "34831dfd-2825-4bb1-a19b-eed8bf263c59", 
+                        "set": {
+                            '[_id == 34831dfd-2825-4bb1-a19b-eed8bf263c59].title' : 
+                                "test sanity mutations"
+                            },
+                        }
+                    }
+                ]
+            }`
                 
             // fetch data from sanity then commit to store
             const books = await sanity.fetch(booksQuery); 
@@ -131,6 +173,24 @@
             this.$store.commit('updateMostPopular', popular);
 
             this.loading = false;
+
+            // SANITY MUTATIONS
+            const apiVersion = 'v2022-04-02' //'2021-10-21'
+            const projectId = 'cuc1osaz'
+            const dataset = 'production'
+            const projectAccessToken = 'skCFxFunKNDkxvgvxwT21bp3EP3feLWZqzqQHg4F7ghAEiflLEYsMBTZmDNDckOk4sCd5EFBFkfOgsptKV6k4O7qZAB9wDhGKU4qEXADM0KKFP5ojxbU1pm0JyNKedLFbYNaIXw9mlptqi0GIo1c2OeIWRmNGxSTcJiAg0g7Ouqb04oYdksp'
+
+            /* const changeYellow = await sanity.fetch(`https://${projectId}.api.sanity.io${apiVersion}/data/mutate/${dataset}`, {
+                method: 'post',
+                headers: {
+                    'Content-type': 'application/json',
+                    Authorization: `Bearer ${projectAccessToken}` // set up token from manage io
+                },
+                body: JSON.stringify(mutation)
+            }); */
+
+            /* const json = await changeYellow.json();
+            return json */
         },
 
         computed: {
@@ -150,7 +210,6 @@
                 return this.$store.getters.getAllBooks;
             }
         },
-
         
     }
 </script>

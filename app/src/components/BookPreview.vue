@@ -2,7 +2,7 @@
         <RouterLink :to="{ name: 'book', params: { book_slug: book.slug.current }}" class="preview"  @mouseover="this.hover = true">
             <h3 class="preview__title">{{ book.title }}</h3>
             <p class="preview__author">{{ book.author.name }}</p>
-            <img :src="book.bookCover.asset.url" alt="book cover" class="preview__image">
+            <img :src="book.cover.asset.url" alt="book cover" class="preview__image">
             <p class="preview__price">{{ book.price }},-</p>
         </RouterLink>
 
