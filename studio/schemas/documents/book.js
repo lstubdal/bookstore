@@ -16,7 +16,7 @@ export default {
         },
         {
             title: 'Book cover (image)',
-            name: 'bookCover',
+            name: 'cover',
             type: 'image',
         },
         {
