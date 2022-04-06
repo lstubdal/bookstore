@@ -25,10 +25,12 @@
 
             <div class="book_description">
                 <h2 class="book_description-title">DESCRIPTION</h2>
-                <p> {{ currentBook.description }} </p>
+
+                <p v-if="!readMoreClicked"> {{ currentBook.description.slice(0, 550) }} </p>
+                <p v-else> {{ currentBook.description }} </p>
             </div>
 
-            <button>read more</button> <!-- and read less -->
+            <button @click="readMore">read more</button> 
         </div>
     </div>
 </template>
@@ -38,6 +40,12 @@
     import GenresNavigation from './GenresNavigation.vue';
 
     export default {
+        data(){
+            return {
+                readMoreClicked: false
+            }
+        },
+
         props: {
             book_slug: {
                 type: String
@@ -56,14 +64,18 @@
 
             genres() {
                 return this.$store.getters.getGenres;
+            },
+        },
+
+        methods: {
+            readMore() {
+                return this.readMoreClicked = !this.readMoreClicked;
             }
         },
         
         created() {
             return this.currentBook = this.books.find(book => book.slug.current === this.book_slug);
         }
-
-
     }
 </script>
 
@@ -87,7 +99,6 @@
         align-items: center;
         justify-content: space-around;
         width: 70%;
-        background-color: red;
     }
 
     .book__information-cover {
