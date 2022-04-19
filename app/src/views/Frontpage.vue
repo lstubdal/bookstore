@@ -2,7 +2,7 @@
     <div v-if="loading" class="loadingPage">Loading all the books...</div> 
     <div v-else class="frontpage">
        <Header />
-       <GenresNavigation :genreList="genres"/>  <!-- slow load? -->
+       <GenresNavigation :genreList="genres"/> 
 
         <main class="frontpage__main">
             <section class="frontpage__news">
@@ -151,10 +151,10 @@
             this.$store.commit('updateLatestNews', bookstore.latestNews);
             this.$store.commit('updateMostPopular', bookstore.mostPopular); 
 
-            console.log('boooooks', this.allBooks)
+            /* console.log('boooooks', this.allBooks)
             console.log('genres', this.genres)
             console.log('news', this.latestNews)
-            console.log('popular', this.mostPopular)
+            console.log('popular', this.mostPopular) */
 
             this.loading = false;
         },
