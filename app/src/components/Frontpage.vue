@@ -49,7 +49,6 @@
             return {
                 loading: true,
                 maxPreviewBooks: 4, // limit to 4 books on frontpage
-                mailInput: ''
             }
         },
 
@@ -61,136 +60,103 @@
         },
 
         async created() {
-            const booksQuery = ` 
-                *[_type == 'book'] | order(title asc) {
-                    ...,
+            const booksQuery = `{
+                    "books":  *[_type == 'book'] {
+                        author-> {
+                            name
+                        },
                     
-                    author-> {
-                        name
+                        genre-> {
+                            name
+                        },
+                    
+                        cover {
+                            asset-> {
+                                url
+                            }
+                        },
+
+                        publisher-> {
+                            name
+                        },
+                  
+                        description,
+
+                        price, 
+
+                        totalSold,
+
+                        yearOfPublication,
+
+                        slug {
+                            current
+                        }
                     },
                     
-                    genre-> {
-                        name
-                    },
-                    
-                    cover {
-                        asset-> {
-                        url
+                    "genres": *[_type == 'genre'] {
+                        name,
+                        
+                        slug {
+                            current
                         }
                     },
 
-                    publisher-> {
-                        name
+                    "latestNews": *[_type == 'book'] | order(yearOfPublication desc) {
+                        title,
+
+                        author-> {
+                            name
+                        },
+
+                        cover {
+                            asset-> {
+                                url
+                            }
+                        },
+
+                        price,
+
+                        yearOfPublicaton,
+
+                        slug {
+                            current
+                        }
                     },
 
-                    slug {
-                        current
+                    "mostPopular": *[_type == 'book'] | order(totalSold desc){
+                        title,
+                    
+                        author-> {
+                            name
+                        },
+
+                        cover {
+                            asset-> {
+                                url
+                            }
+                        },
+
+                        price,
+
+                        slug {
+                            current
                         }
-                    }`
-
-            const genresQuery = `
-                *[_type == "genre"]{
-                    name,
-
-                    slug {
-                        current
                     }
                 }`
-
-            // find the newest books based on published year, newest first 
-            const latestNewsQuery = ` 
-                *[_type == "book"] | order(yearOfPublication desc) { 
-
-                    title,
-                    
-                    author-> {
-                        name
-                    },
-
-                    cover {
-                        asset-> {
-                            url
-                        }
-                    },
-
-                    price,
-
-                    slug {
-                        current
-                    }
-                }`
-
-            // find the most popular books based on total sold value
-            const mostPopularQuery = `
-                *[_type == 'book'] | order(totalSold desc) {
-                    title,
-  
-                    author-> {
-                        name
-                    },
-
-                    cover{
-                        asset-> {
-                            url
-                        }
-                    },
-
-                    price,
-
-                    slug {
-                        current
-                    }
-                }`
-            
-            // test change title yellow book
-            const mutation = `{ 
-                "mutations": [
-                    {
-                    "patch": {
-                        "id": "34831dfd-2825-4bb1-a19b-eed8bf263c59", 
-                        "set": {
-                            '[_id == 34831dfd-2825-4bb1-a19b-eed8bf263c59].title' : 
-                                "test sanity mutations"
-                            },
-                        }
-                    }
-                ]
-            }`
                 
-            // fetch data from sanity then commit to store
-            const books = await sanity.fetch(booksQuery); 
-            this.$store.commit('addAllBooks', books);
+            // fetch data from sanity then commit to store to seperate arrays
+            const bookstore = await sanity.fetch(booksQuery); 
+            this.$store.commit('setBooks', bookstore.books);
+            this.$store.commit('setGenres', bookstore.genres);
+            this.$store.commit('updateLatestNews', bookstore.latestNews);
+            this.$store.commit('updateMostPopular', bookstore.mostPopular); 
 
             console.log('boooooks', this.allBooks)
-
-            const genres = await sanity.fetch(genresQuery); 
-            this.$store.commit('addGenres', genres);
-
-            const news = await sanity.fetch(latestNewsQuery);
-            this.$store.commit('updateLatestNews', news);
-
-            const popular = await sanity.fetch(mostPopularQuery);
-            this.$store.commit('updateMostPopular', popular);
+            console.log('genres', this.genres)
+            console.log('news', this.latestNews)
+            console.log('popular', this.mostPopular)
 
             this.loading = false;
-
-            // SANITY MUTATIONS
-            const apiVersion = 'v2022-04-02' //'2021-10-21'
-            const projectId = 'cuc1osaz'
-            const dataset = 'production'
-            const projectAccessToken = 'skCFxFunKNDkxvgvxwT21bp3EP3feLWZqzqQHg4F7ghAEiflLEYsMBTZmDNDckOk4sCd5EFBFkfOgsptKV6k4O7qZAB9wDhGKU4qEXADM0KKFP5ojxbU1pm0JyNKedLFbYNaIXw9mlptqi0GIo1c2OeIWRmNGxSTcJiAg0g7Ouqb04oYdksp'
-
-            /* const changeYellow = await sanity.fetch(`https://${projectId}.api.sanity.io${apiVersion}/data/mutate/${dataset}`, {
-                method: 'post',
-                headers: {
-                    'Content-type': 'application/json',
-                    Authorization: `Bearer ${projectAccessToken}` // set up token from manage io
-                },
-                body: JSON.stringify(mutation)
-            }); */
-
-            /* const json = await changeYellow.json();
-            return json */
         },
 
         computed: {
