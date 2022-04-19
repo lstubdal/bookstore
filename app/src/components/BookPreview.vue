@@ -1,12 +1,13 @@
 <template>
-        <RouterLink :to="{ name: 'book', params: { book_slug: book.slug.current }}" class="preview"  @mouseover="this.hover = true">
+        <RouterLink :to="{ name: 'book', params: { book_slug: book.slug.current }}" class="preview">
             <h3 class="preview__title">{{ book.title }}</h3>
             <p class="preview__author">{{ book.author.name }}</p>
             <img :src="book.cover.asset.url" alt="book cover" class="preview__image">
             <p class="preview__price">{{ book.price }},-</p>
         </RouterLink>
 
-        <button v-show="hover" class="preview__hover" @click="addToCart" @mouseleave="this.hover = false" >
+        <!-- legge til senere? -->
+        <button v-show="hover" class="preview__hover" @click="addToCart">
             <p>add to cart</p>
             <img src="/icons/cart-small.svg" alt="mini cart icon">
         </button>
@@ -15,12 +16,6 @@
 
 <script>
     export default {
-        data() {
-            return {
-                hover: false
-            }
-        },
-
         props: {
             book: {
                 type: Object
@@ -28,7 +23,8 @@
         },
 
         methods: {
-            addToCart() {
+            addToCart(book) {
+                console.log(book)
                 window.alert('added')
             }
         }
