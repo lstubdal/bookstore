@@ -1,9 +1,6 @@
 <template>
     <div v-if="loading" class="loadingPage">Loading all the books...</div> 
     <div v-else class="frontpage">
-       <Header />
-       <GenresNavigation :genreList="genres"/> 
-
         <main class="frontpage__main">
             <section class="frontpage__news">
                 <h2>LATEST NEWS</h2>
@@ -25,16 +22,11 @@
                 <h2>MOST POPULAR</h2>
             </section>
         </main>
-
-        <Footer />
     </div>
 </template>
 
 <script>
-    import Header from '../components/Header.vue';
-    import GenresNavigation from '../components/GenresNavigation.vue';
     import BookPreview from '../components/BookPreview.vue';
-    import Footer from '../components/Footer.vue';
 
     import sanityClient from '@sanity/client';
     const sanity = sanityClient({ // create new sanityClient
@@ -53,15 +45,15 @@
         },
 
         components: {
-            Header,
-            GenresNavigation,
             BookPreview,
-            Footer
         },
 
         async created() {
             const booksQuery = `{
                     "books":  *[_type == 'book'] {
+
+                        title, 
+                        
                         author-> {
                             name
                         },
@@ -88,14 +80,6 @@
 
                         yearOfPublication,
 
-                        slug {
-                            current
-                        }
-                    },
-                    
-                    "genres": *[_type == 'genre'] {
-                        name,
-                        
                         slug {
                             current
                         }
@@ -147,7 +131,6 @@
             // fetch data from sanity then commit to store to seperate arrays
             const bookstore = await sanity.fetch(booksQuery); 
             this.$store.commit('setBooks', bookstore.books);
-            this.$store.commit('setGenres', bookstore.genres);
             this.$store.commit('updateLatestNews', bookstore.latestNews);
             this.$store.commit('updateMostPopular', bookstore.mostPopular); 
 
@@ -197,8 +180,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        border: var(--default);
-        margin: var(--small);
         font-family: var(--main-font);
     }
 

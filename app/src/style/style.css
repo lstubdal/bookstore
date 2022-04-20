@@ -1,0 +1,5 @@
+.container {
+    border: var(--default);
+    margin: var(--small);
+    font-family: var(--main-font);
+}

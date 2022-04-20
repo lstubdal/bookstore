@@ -1,10 +1,10 @@
 export default {
     state() {
         return {
-            allBooks: null,
+            allBooks: [],
             genres: [],
-            latestNews: null,
-            mostPopular: null,
+            latestNews: [],
+            mostPopular: [],
             cart: []
         }
     },
@@ -32,11 +32,11 @@ export default {
     },
 
     mutations: {
-        addAllBooks(state, books) {
+        setBooks(state, books) {
             state.allBooks = books;
         },
 
-        addGenres(state, genres) {
+        setGenres(state, genres) {
             state.genres = genres;
         },
 
@@ -46,6 +46,16 @@ export default {
 
         updateMostPopular(state, popular) {
             state.mostPopular = popular
+        },
+
+        addToCart(state, book) {
+            state.cart.push(book);
+        }
+    },
+
+    actions: {
+        addToCart({commit}, book) {
+            commit('addToCart', book)
         }
     }
 }

@@ -1,9 +1,7 @@
-- routerlink
-- genres fullpage (ruterlink)
-- bookpreview comp?
-- book comp
+- bugfix: reload
 - localStorage
-- add ot cart
-- store
-- responsive
-- fix shoppingcart mouseover
+- fix components!
+- read more styling & position
+- nested routes
+- genres
+- mixins

@@ -1,22 +1,22 @@
 <template>
-        <RouterLink :to="{ name: 'book', params: { book_slug: book.slug.current }}" class="preview">
+    <div class="preview">
+        <RouterLink :to="{ name: 'book', params: { book_slug: book.slug.current }}" class="preview__book">
             <h3 class="preview__title">{{ book.title }}</h3>
             <p class="preview__author">{{ book.author.name }}</p>
             <img :src="book.cover.asset.url" alt="book cover" class="preview__image">
             <p class="preview__price">{{ book.price }},-</p>
-        </RouterLink>
+        </RouterLink>    
 
-        <!-- legge til senere? -->
-        <button v-show="hover" class="preview__hover" @click="addToCart">
+        <button class="preview__addToCart" @click="addToCart(book)">
             <p>add to cart</p>
             <img src="/icons/cart-small.svg" alt="mini cart icon">
         </button>
-    
+    </div>
 </template>
 
 <script>
     export default {
-        props: {
+        props: {    // tar i mot book object fra bok på frontpage som blir klikket
             book: {
                 type: Object
             }
@@ -24,8 +24,7 @@
 
         methods: {
             addToCart(book) {
-                console.log(book)
-                window.alert('added')
+                this.$store.commit('addToCart', book);
             }
         }
     }
@@ -33,6 +32,12 @@
 
 <style>
     .preview {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    .preview__book {
         height: 300px;
         width: 210px;
         display: flex;
@@ -69,15 +74,12 @@
         padding: var(--padding-small);
     }
 
-    .preview__hover {
-        height: 8%;
-        width: 12%;
-        position: absolute;
-        bottom: 20;
+    .preview__addToCart {
+        height: 15%;
+        width: 70%;
         display: flex;
         align-items: center;
         justify-content: space-evenly;
-        margin-left: 3.8%;
         background: transparent;
         color: var(--highlight);
         border-left: none;
@@ -85,10 +87,11 @@
         border-top: var(--default);
         border-bottom: var(--default);
         border-color: var(--main);
+        padding: var(--padding-medium);
         cursor: pointer;
     }
 
-    .preview__hover p {
+    .preview__addToCart p {
         font-size: 1.5em;
     }
 </style>
