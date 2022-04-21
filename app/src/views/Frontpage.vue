@@ -26,85 +26,25 @@
 </template>
 
 <script>
+    import query from '../groq/frontpage.groq?raw';
+    import viewMixin from '../mixins/viewMixin';
     import BookPreview from '../components/BookPreview.vue';
-
-    import sanityClient from '@sanity/client';
-    const sanity = sanityClient({ // create new sanityClient
-        projectId: 'cuc1osaz', // unique project id
-        dataset: 'production',
-        apiVersion: '2022-04-02', // date of sClient created
-        useCdn: 'false' // false local / true netlify
-    })
 
     export default {
         data() {
             return {
-                loading: true,
                 maxPreviewBooks: 4, // limit to 4 books on frontpage
             }
         },
+
+        mixins: [viewMixin],
 
         components: {
             BookPreview,
         },
 
         async created() {
-            const booksQuery = `{
-                    "latestNews": *[_type == 'book'] | order(yearOfPublication desc) {
-                        title,
-
-                        author-> {
-                            name
-                        },
-
-                        cover {
-                            asset-> {
-                                url
-                            }
-                        },
-
-                        price,
-
-                        yearOfPublicaton,
-
-                        slug {
-                            current
-                        }
-                    },
-
-                    "mostPopular": *[_type == 'book'] | order(totalSold desc){
-                        title,
-                    
-                        author-> {
-                            name
-                        },
-
-                        cover {
-                            asset-> {
-                                url
-                            }
-                        },
-
-                        price,
-
-                        slug {
-                            current
-                        }
-                    }
-                }`
-                
-            // fetch data from sanity then commit to store to seperate arrays
-            const bookstore = await sanity.fetch(booksQuery); 
-            /* this.$store.commit('setBooks', bookstore.books); */
-            this.$store.commit('updateLatestNews', bookstore.latestNews);
-            this.$store.commit('updateMostPopular', bookstore.mostPopular); 
-
-            /* console.log('boooooks', this.allBooks)
-            console.log('genres', this.genres)
-            console.log('news', this.latestNews)
-            console.log('popular', this.mostPopular) */
-
-            this.loading = false;
+            await this.sanityFetchFrontpage(query)
         },
 
         computed: {
@@ -114,14 +54,6 @@
 
             mostPopular() {
                 return this.$store.getters.getMostPopular;
-            },
-
-            genres() {
-                return this.$store.getters.getGenres;
-            },
-            
-            allBooks() {
-                return this.$store.getters.getAllBooks;
             }
         },
         

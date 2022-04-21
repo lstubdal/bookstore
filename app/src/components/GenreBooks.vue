@@ -1,7 +1,7 @@
 <template>
     <div v-if="loading">LOADING BOOKS</div>
     <div v-else class="genreBooks">
-        <h1 class="genreBooks__title">{{ currentGenre.name }}</h1>
+        <h1 class="genreBooks__title">{{ currentGenre }}</h1>
         
         <main class="genreBooks__books">
             <BookPreview  :book="book"  v-for="book in genreBooks" />
@@ -11,64 +11,17 @@
 
 <script>
     import BookPreview from '../components/BookPreview.vue';
-    import sanityClient from '@sanity/client';
-
-    const sanity = sanityClient({ // create new sanityClient
-        projectId: 'cuc1osaz', // unique project id
-        dataset: 'production',
-        apiVersion: '2022-04-20', // date of sClient created
-        useCdn: 'false' // false local / true netlify
-    })
+    import query from '../groq/genreBooks.groq?raw';
+    import viewMixin from '../mixins/viewMixin';
 
     export default {
-        data() {
-            return {
-                currentGenre: null,
-                warning: false,
-                loading: false
-            }
-        },
+        mixins: [viewMixin],
 
         async created() {
-            /* reload crash spør */
-            const genreQuery = `{
-                    "currentGenre": *[slug.current == $slug][0],
-
-                    "genreBooks": *[_type == "book" && genre._ref in *[_type=="genre" && slug.current==$slug]._id ]{
-                        title,
-
-                        author-> {
-                            name
-                        },
-
-                        price,
-
-                        cover {
-                            asset-> {
-                                url
-                            }
-                        },
-
-                        slug {
-                            current
-                        }
-                    }
-                }`
-            
-
-             const params = {
+            /* RELOAD CRASH HVORFOR??????????????? */
+            await this.sanityFetchGenreBooks(query,{
                 slug: this.$route.params.genre_slug
-            }
-
-            const books = await sanity.fetch(genreQuery, params);
-            this.$store.commit('setGenreBooks', books.genreBooks); 
-
-            console.log('GENRE BOOKS', this.genreBooks)
-
-            const fetcehdGenre = await sanity.fetch(genreQuery, params);
-            this.currentGenre = fetcehdGenre.currentGenre;
-
-            this.loading = false;
+            })
         },
 
         props: {
@@ -82,8 +35,8 @@
         },
 
         computed: {
-            genres() {
-                return this.$store.getters.getGenres;
+            currentGenre() {
+                return this.$store.getters.getCurrentGenre;
             },
 
             genreBooks() {

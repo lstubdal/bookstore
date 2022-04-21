@@ -1,0 +1,23 @@
+{
+    "currentGenre": *[slug.current == $slug][0],
+
+    "genreBooks": *[_type == "book" && genre._ref in *[_type=="genre" && slug.current==$slug]._id ]{
+        title,
+
+        author-> {
+            name
+        },
+
+        price,
+
+        cover {
+            asset-> {
+                url
+            }
+        },
+
+        slug {
+            current
+        }
+    }
+}

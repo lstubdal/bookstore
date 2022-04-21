@@ -28,6 +28,15 @@ export default {
 
             console.log('genrer books', this.genreBooks);
             console.log('current genre', this.currentGenre);
+        },
+
+        async sanityFetchBook(query, params) {
+            this.result = await sanity.fetch(query, params);
+            this.$store.commit('setBook', this.result)
+
+            this.loading = false;
+
+            console.log(this.book);
         }
     },
 
@@ -42,6 +51,10 @@ export default {
 
         currentGenre() {
             return this.$store.getters.getCurrentGenre;
+        },
+
+        book() {
+            return this.$stoer.getters.getBook;
         }
     }
 }

@@ -1,15 +1,15 @@
 <template>
-    <div class="book"> 
+    <div v-if="book" class="book"> 
         <div class="information">
-            <img :src="currentBook.cover.asset.url" alt="book cover" class="information__cover">
+            <img :src="book.cover.asset.url" alt="book cover" class="information__cover">
 
             <div class="information__details">
-                <h1 clas="information__title"> {{ currentBook.title }} </h1>
-                <p class="information__author"> {{ currentBook.author.name }} </p>
-                <p class="information__price"> {{ currentBook.price }},- </p>
-                <p class="information__publisher"> {{ currentBook.publisher.name }} {{ currentBook.yearOfPublication}} </p>
+                <h1 clas="information__title"> {{ book.title }} </h1>
+                <p class="information__author"> {{ book.author.name }} </p>
+                <p class="information__price"> {{ book.price }},- </p>
+                <p class="information__publisher"> {{ book.publisher.name }} {{ book.yearOfPublication}} </p>
             
-                <button class="information__addToCart" @click="addToCart(currentBook)">
+                <button class="information__addToCart" @click="addToCart(book)">
                     <p>add to cart</p>
                     <img src="/icons/cart-small.svg" alt="mini cart">
                 </button>
@@ -22,8 +22,8 @@
             <h2 class="book__description-title">DESCRIPTION</h2>
 
             <div class="book__description-text">
-                <p v-if="!readMoreClicked"> {{ currentBook.description.slice(0, 550) }} </p>
-                <p v-else> {{ currentBook.description }} </p>
+                <p v-if="!readMoreClicked"> {{ book.description.slice(0, 550) }} </p>
+                <p v-else> {{ book.description }} </p>
                 <button @click="readMore" class="book__description-button">{{ buttonText }}</button>
             </div>
         </div>
@@ -32,60 +32,22 @@
 
 <script>
     import BackToFrontpage from '../components/BackToFrontpage.vue';
-    import sanityClient from '@sanity/client';
-
-    const sanity = sanityClient({ // create new sanityClient
-        projectId: 'cuc1osaz', // unique project id
-        dataset: 'production',
-        apiVersion: '2022-04-20', // date of sClient created
-        useCdn: 'false' // false local / true netlify
-    })
+    import query from '../groq/book.groq?raw';
+    import viewMixin from '../mixins/viewMixin';
 
     export default {
-         data(){
+        data(){
             return {
-                loading: true,
-                currentBook: null,
                 readMoreClicked: false
             }
         },
 
-        async created() { // index 0 => første boken som blir funnet
-            const query = `
-                *[slug.current == $slug][0] { 
-                    ...,
-                    
-                    title,
+        mixins: [viewMixin],
 
-                    author-> {
-                        name
-                    },
-                    
-                    price,
-
-                    publisher-> {
-                        name
-                    },
-
-                    cover {
-                        asset-> {
-                            url
-                        }
-                    },
-
-                    yearOfPublication
-                }
-            `
-
-            const param = {
+        async created() { 
+            await this.sanityFetchBook(query, {
                 slug: this.$route.params.book_slug
-            }
-
-            this.currentBook = await sanity.fetch(query, param);
-            this.loading = false;
-
-            console.log(this.currentBook.title);
-
+            }) 
         },
 
         props: {
@@ -99,8 +61,8 @@
         },
 
         computed: {
-            books() {
-                return this.$store.getters.getAllBooks;
+            book() {
+                return this.$store.getters.getBook;
             },
 
             buttonText() {
@@ -113,8 +75,8 @@
                 return this.readMoreClicked = !this.readMoreClicked;
             },
 
-            addToCart(currentBook) {
-                this.$store.dispatch('addToCart', currentBook);
+            addToCart(book) {
+                this.$store.dispatch('addToCart', book);
             }
         },
         

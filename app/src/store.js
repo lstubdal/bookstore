@@ -1,6 +1,7 @@
 import frontpage from './modules/frontpage.js';
 import cart from './modules/cart.js';
 import genre from './modules/genre.js';
+import book from './modules/book.js';
 
 export default {
     state() {
@@ -24,6 +25,7 @@ export default {
     modules: {
         frontpage,
         cart,
-        genre
+        genre,
+        book
     }
 }

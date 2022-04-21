@@ -1,23 +1,23 @@
 <template>
-        <header class="header">
-            <RouterLink :to="{ name: 'frontpage'}" class="header__title">
-                <h1>{{ title }}</h1>
-            </RouterLink>
+    <header class="header">
+        <RouterLink :to="{ name: 'frontpage'}" class="header__title">
+            <h1>{{ title }}</h1>
+        </RouterLink>
 
-            <RouterLink :to="{ name: 'cart'}" class="header__cart">
-                <img src="/icons/cart.svg" alt="cart icon">
-                <p class="header__cart-items"> ({{ totalItems }})</p>
-                <p>shoppingcart</p>
-            </RouterLink>
-        </header>
+        <RouterLink :to="{ name: 'cart'}" class="header__cart">
+            <img src="/icons/cart.svg" alt="cart icon">
+            <p class="header__cart-items"> ({{ totalItems }})</p>
+            <p>shoppingcart</p>
+        </RouterLink>
+    </header>
 
-        <nav class="genres">
-            <div v-for="genre in genres">
-                <RouterLink :to="{ name: 'genre', params: {genre_slug: genre.slug.current }}" class="genres__genre">
-                    <p>{{ genre.name }}</p>
-                </RouterLink>
-            </div>
-        </nav>
+    <nav class="genres">
+        <div v-for="genre in genres">
+            <RouterLink :to="{ name: 'genre', params: {genre_slug: genre.slug.current }}" class="genres__genre">
+                <p>{{ genre.name }}</p>
+            </RouterLink>
+        </div>
+    </nav>
 </template>
 
 <script>
