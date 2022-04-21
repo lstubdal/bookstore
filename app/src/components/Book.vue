@@ -84,7 +84,7 @@
             this.currentBook = await sanity.fetch(query, param);
             this.loading = false;
 
-            console.log(this.currentBook);
+            console.log(this.currentBook.title);
 
         },
 

@@ -2,6 +2,7 @@
     <div v-if="loading">LOADING BOOKS</div>
     <div v-else class="genreBooks">
         <h1 class="genreBooks__title">{{ currentGenre.name }}</h1>
+        
         <main class="genreBooks__books">
             <BookPreview  :book="book"  v-for="book in genreBooks" />
         </main>
@@ -22,25 +23,52 @@
     export default {
         data() {
             return {
-                genreBooks: [],
                 currentGenre: null,
-                warning: false
+                warning: false,
+                loading: false
             }
         },
 
         async created() {
-            const query = `
-                *[slug.current == $slug][0] 
-            `
+            /* reload crash spør */
+            const genreQuery = `{
+                    "currentGenre": *[slug.current == $slug][0],
 
-            const param = {
+                    "genreBooks": *[_type == "book" && genre._ref in *[_type=="genre" && slug.current==$slug]._id ]{
+                        title,
+
+                        author-> {
+                            name
+                        },
+
+                        price,
+
+                        cover {
+                            asset-> {
+                                url
+                            }
+                        },
+
+                        slug {
+                            current
+                        }
+                    }
+                }`
+            
+
+             const params = {
                 slug: this.$route.params.genre_slug
             }
 
-            this.currentGenre = await sanity.fetch(query, param);
+            const books = await sanity.fetch(genreQuery, params);
+            this.$store.commit('setGenreBooks', books.genreBooks); 
+
+            console.log('GENRE BOOKS', this.genreBooks)
+
+            const fetcehdGenre = await sanity.fetch(genreQuery, params);
+            this.currentGenre = fetcehdGenre.currentGenre;
+
             this.loading = false;
-            
-            this.findBooksWithGenre();
         },
 
         props: {
@@ -58,8 +86,8 @@
                 return this.$store.getters.getGenres;
             },
 
-            allBooks() {
-                return this.$store.getters.getAllBooks;
+            genreBooks() {
+                return this.$store.getters.getGenreBooks;
             },
 
             noBooksWarning() {
@@ -74,9 +102,9 @@
                 this.currentGenre = this.genres.find(genre => genre.slug.current === this.genre_slug);
             }, */
 
-            findBooksWithGenre() {
+            /* findBooksWithGenre() {
                 this.genreBooks = this.allBooks.filter(book => book.genre.name === this.currentGenre.name); 
-            }
+            } */
         },
     }
 </script>

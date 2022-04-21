@@ -24,7 +24,7 @@
 
         methods: {
             addToCart(book) {
-                this.$store.commit('addToCart', book);
+                this.$store.dispatch('addToCart', book);
             }
         }
     }
@@ -76,7 +76,7 @@
 
     .preview__addToCart {
         height: 15%;
-        width: 70%;
+        width: 65%;
         display: flex;
         align-items: center;
         justify-content: space-evenly;

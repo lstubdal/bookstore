@@ -5,3 +5,6 @@
 - nested routes
 - genres
 - mixins
+- remove from cart
+- routing => locked
+- active link

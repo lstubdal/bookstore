@@ -4,7 +4,11 @@
                 <h1>{{ title }}</h1>
             </RouterLink>
 
-            <Cart />
+            <RouterLink :to="{ name: 'cart'}" class="header__cart">
+                <img src="/icons/cart.svg" alt="cart icon">
+                <p class="header__cart-items"> ({{ totalItems }})</p>
+                <p>shoppingcart</p>
+            </RouterLink>
         </header>
 
         <nav class="genres">
@@ -17,9 +21,8 @@
 </template>
 
 <script>
-    import Cart from '../components/Cart.vue';
-
     import sanityClient from '@sanity/client';
+
     const sanity = sanityClient({ // create new sanityClient
         projectId: 'cuc1osaz', // unique project id
         dataset: 'production',
@@ -48,13 +51,17 @@
             this.$store.commit('setGenres', genres);
         },
 
-        components: {
-            Cart
-        },
-
         computed: {
             genres() {
                 return this.$store.getters.getGenres;
+            },
+
+            cart() {
+                return this.$store.getters.getCart;
+            },
+
+            totalItems() {
+                return this.cart.length === 0 ? 'empty' : this.cart.length
             }
         }
     }
@@ -79,6 +86,27 @@
     .header__title h1 {
         color: var(--highlight);
         font-size: 2.5em;
+    }
+
+    .header__cart {
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 33%);
+        align-items: center;
+        padding: var(--padding-medium) 0% var(--padding-medium) var(--padding-medium) ;
+        border-left: var(--default);
+        text-decoration: none;
+        color: var(--highlight);
+        cursor: pointer;
+    }
+
+    .header__cart:hover {
+        color: var(--highlight);
+    }
+
+    .header__cart-items {
+        font-size: 1em;
+        margin: var(--margin-medium);
     }
 
     .genres {

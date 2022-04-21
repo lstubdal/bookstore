@@ -50,41 +50,6 @@
 
         async created() {
             const booksQuery = `{
-                    "books":  *[_type == 'book'] {
-
-                        title, 
-                        
-                        author-> {
-                            name
-                        },
-                    
-                        genre-> {
-                            name
-                        },
-                    
-                        cover {
-                            asset-> {
-                                url
-                            }
-                        },
-
-                        publisher-> {
-                            name
-                        },
-                  
-                        description,
-
-                        price, 
-
-                        totalSold,
-
-                        yearOfPublication,
-
-                        slug {
-                            current
-                        }
-                    },
-
                     "latestNews": *[_type == 'book'] | order(yearOfPublication desc) {
                         title,
 
@@ -130,7 +95,7 @@
                 
             // fetch data from sanity then commit to store to seperate arrays
             const bookstore = await sanity.fetch(booksQuery); 
-            this.$store.commit('setBooks', bookstore.books);
+            /* this.$store.commit('setBooks', bookstore.books); */
             this.$store.commit('updateLatestNews', bookstore.latestNews);
             this.$store.commit('updateMostPopular', bookstore.mostPopular); 
 

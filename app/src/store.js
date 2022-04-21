@@ -5,6 +5,7 @@ export default {
             genres: [],
             latestNews: [],
             mostPopular: [],
+            genreBooks: [],
             cart: []
         }
     },
@@ -19,11 +20,15 @@ export default {
         },
 
         getMostPopular(state) {
-            return state.mostPopular
+            return state.mostPopular;
         },
 
         getGenres(state) {
-            return state.genres
+            return state.genres;
+        },
+
+        getGenreBooks(state) {
+            return state.genreBooks;
         },
 
         getCart(state) {
@@ -40,22 +45,39 @@ export default {
             state.genres = genres;
         },
 
+        setGenreBooks(state, genreBooks) {
+            state.genreBooks = genreBooks;
+        },
+
         updateLatestNews(state, news) {
             state.latestNews = news;
         },
 
         updateMostPopular(state, popular) {
-            state.mostPopular = popular
+            state.mostPopular = popular;
         },
 
-        addToCart(state, book) {
+        /* spør alejandro actions og mutations */
+        add(state, book) {
             state.cart.push(book);
+        },
+
+        remove(state, book) {
+            state.cart.forEach((bookInCart, index)  => {
+                if (bookInCart.title === book.title) {
+                    state.cart.splice(index, 1)
+                }
+            })
         }
     },
 
     actions: {
         addToCart({commit}, book) {
-            commit('addToCart', book)
+            commit('add', book)
+        },
+
+        removeFromCart({commit}, book) {
+            commit('remove', book)
         }
     }
 }

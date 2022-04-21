@@ -10,11 +10,19 @@
 	import Header from '../components/Header.vue';
 	import Footer from '../components/Footer.vue';
 
+	import sanityClient from '@sanity/client';
+    const sanity = sanityClient({ // create new sanityClient
+        projectId: 'cuc1osaz', // unique project id
+        dataset: 'production',
+        apiVersion: '2022-04-02', // date of sClient created
+        useCdn: 'false' // false local / true netlify
+    })
+
     export default {
 		components: {
 			Header,
 			Footer
-		},
+		}
     }
 </script>
 <style>
