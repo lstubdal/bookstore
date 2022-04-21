@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<Header />
-		<RouterView />
+		<RouterView :key="$route.fullPath" /> <!-- :key => "force a replacement" of the <router-view> element / component every time a navigation event occurs (instead of reusing it) -->
 		<Footer />
 	</div>
 </template>
@@ -14,7 +14,7 @@
 		components: {
 			Header,
 			Footer
-		}
+		},
     }
 </script>
 <style>
@@ -23,3 +23,7 @@
 	@import '../style/fonts.css';
 	@import '../style/style.css';
 </style>
+
+<!--
+	Soruce key: https://vuejs.org/api/built-in-special-attributes.html#ref 
+-->
