@@ -11,10 +11,11 @@ export default [
 	},
 	{ 
 		name: 'book', 			
-		path: '/:book_slug', 			
+		path: '/books/:book_slug', 			
 		component: BookView  		
 	},
-	{ 
+	{ 	
+		/* legg til nivå */
 		name: 'genre', 			
 		path: '/:genre_slug', 			
 		component: GenreBooksView 
