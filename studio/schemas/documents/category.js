@@ -6,7 +6,8 @@ export default {
         {
             title: 'Category name',
             name: 'categoryName',
-            type: 'string'
+            type: 'string',
+            validation: Rule => Rule.required().min(1).error('Missing name')
         },
         {
             title: 'Genres',
@@ -15,7 +16,8 @@ export default {
             of: [{ 
                 type: 'reference',
                 to: [{ type: 'genre' }]
-            }]
+            }],
+            validation: Rule => Rule.required().error('Missing genre')
             
 
         }
