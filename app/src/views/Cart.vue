@@ -6,14 +6,21 @@
             <div class="cart__product">
                 <img :src="book.cover.asset.url">
                 <h3>{{ book.title }}</h3>
-                <p>{{ book.price }},-</p>
+                <span>{{ book.price }},-</span>
+
+                <div class="quantity">
+                    <button>+</button>
+                    <span>{{ book.quantity }}</span>
+                    <button>-</button>
+                </div>
+
                 <button class="cart__product-remove" @click="removeFromCart(book)">
                     <img src="/icons/remove.svg" alt="trash icon">
                 </button>
             </div>
         </section>
 
-        <span>Total sum: {{ totalSum }},-</span>
+        <span>Total sum: {{ totalSum }} kr</span>
 
         <button>GO TO CHECKOUT</button>
 
@@ -84,4 +91,16 @@
         background: transparent;
         border: none;
     }
+
+
+    .quantity {
+        display: flex;
+    }
+
+    .quantity button {
+        background-color: transparent;
+        border: none;
+        padding: var(--padding-small);
+    }
+
 </style>
