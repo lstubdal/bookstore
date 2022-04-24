@@ -36,6 +36,10 @@
 
 <script>
     export default {
+        mounted() {
+            this.$store.dispatch('getFromLocalStorage'); // update localstorage
+        },
+
         computed: {
             cart() {
                 return this.$store.getters.getCart;

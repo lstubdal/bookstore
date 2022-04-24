@@ -55,20 +55,25 @@ export default {
 
         decrease(state, index) {
             if (state.cart[index].quantity === 1) {
-                state.cart.splice(index, 1); // remove book if zero
+                state.cart.splice(index, 1); // remove book if zero quantity
             }
             state.cart[index].quantity -= 1;
-            /* console.log('decrease', state.cart[index].quantity) */
+        },
+
+        setBooksInCart(state, books) {
+            state.cart = books;
         }
     },
 
     actions: {
-        addToCart({commit}, book) {
+        addToCart({commit, dispatch}, book) {
           commit('add', book);
+          dispatch('updateLocalStorage')
         },
 
-        removeFromCart({commit}, book, index) {
-            commit('remove', book, index)
+        removeFromCart({commit, dispatch}, book) {
+            commit('remove', book);
+            dispatch('updateLocalStorage')
         },
 
         increaseQuantity({ commit }, index) {
@@ -78,6 +83,20 @@ export default {
         decreaseQuantity({ commit }, index) {
             commit('decrease', index);
             
+        },
+
+        updateLocalStorage({ state }){
+            window.localStorage.setItem('books-cart', JSON.stringify(state.cart)); // convert arraty to string for localStorage
+        },
+
+        getFromLocalStorage({ commit }) {
+            const parsedCartArray = JSON.parse(window.localStorage.getItem('books-cart')) // parse array back to use value 
+            commit('setBooksInCart', parsedCartArray); // set parsed value to cart array
+        },
+
+        removeFromLocalStorage({commit, dispatch}, book){
+            /* commit('remove', book); // remove book from cart array
+            dispatch('setToLocalStorage'); // update key value(array) instead of deleting it/override */
         }
     }
 }
