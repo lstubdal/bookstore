@@ -2,7 +2,7 @@
   <div class="cart">
         <h2 class="cart__title">SHOPPINGCART</h2>
 
-        <div class="cart__products" v-for="book in cart">
+        <section class="cart__products" v-for="book in cart">
             <div class="cart__product">
                 <img :src="book.cover.asset.url">
                 <h3>{{ book.title }}</h3>
@@ -11,11 +11,11 @@
                     <img src="/icons/remove.svg" alt="trash icon">
                 </button>
             </div>
-        </div>
+        </section>
 
-        <div>Total sum</div>
+        <span>Total sum: {{ totalSum }},-</span>
 
-        <div>GO TO CHECKOUT</div>
+        <button>GO TO CHECKOUT</button>
 
     </div>
 </template>
@@ -26,13 +26,17 @@
             cart() {
                 return this.$store.getters.getCart;
             },
+
+            totalSum() {
+                return this.$store.getters.getTotalSum;
+            },
         },
 
         methods: {
             removeFromCart(book) {
-                console.log('fjernet')
-                this.$store.commit('remove', book);
-            }
+                this.$store.dispatch('removeFromCart', book);
+            },
+
         }
     }
 </script>

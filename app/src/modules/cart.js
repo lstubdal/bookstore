@@ -1,14 +1,21 @@
 export default {
     state() {
         return {
-            cart: []
+            cart: [],
+            totalSum: 0
         }
     },
 
     getters: {
         getCart(state) {
             return state.cart;
-        }
+        },
+        getTotalSum(state) {
+            state.cart.forEach(book => {
+                state.totalSum += book.price;
+            })
+            return state.totalSum
+        },
     },
 
     mutations: {
@@ -25,7 +32,6 @@ export default {
         }
     },
 
-    /* hvorfor?? semantisk riktig */
     actions: {
         addToCart({commit}, book) {
             commit('add', book)
