@@ -13,7 +13,7 @@
 
     <nav class="genres">
         <div v-for="genre in genres">
-            <RouterLink :to="{ name: 'genre', params: {genre_slug: genre.slug.current }}" class="genres__genre">
+            <RouterLink :to="{ name: 'genre', params: {genre_slug: genre.slug.current }}" class="genres__genre" active-class="active">
                 <p>{{ genre.name }}</p>
             </RouterLink>
         </div>
@@ -127,7 +127,7 @@
         color: var(--dark);
     }
 
-    .genres__genre:hover {
+    .genres__genre:hover, .active {
         text-decoration: underline 1px;
         color: var(--highlight);
     }
