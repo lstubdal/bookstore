@@ -1,6 +1,6 @@
 import Frontpage from './views/Frontpage.vue';
-import BookView from './views/BookView.vue';
-import GenreBooksView from './views/GenreBooksView.vue';
+import Book from './views/Book.vue';
+import GenreBooks from './views/GenreBooks.vue';
 import Cart from './views/Cart.vue';
 
 export default [
@@ -12,13 +12,12 @@ export default [
 	{ 
 		name: 'book', 			
 		path: '/books/:book_slug', 			
-		component: BookView  		
+		component: Book  		
 	},
 	{ 	
-		/* legg til nivå */
 		name: 'genre', 			
 		path: '/:genre_slug', 			
-		component: GenreBooksView 
+		component: GenreBooks 
 	},
 	{
 		name: 'cart',
