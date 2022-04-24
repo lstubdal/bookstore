@@ -15,6 +15,12 @@ export default {
         setBook(state, book) {
             state.book = book;
         }
+    },
+
+    actions: {
+        updateCurrentBook({ commit }, currentBook) {
+            commit('setBook', currentBook);
+        }
     }
 
 

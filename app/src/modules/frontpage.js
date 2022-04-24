@@ -17,12 +17,22 @@ export default {
     },
 
     mutations: {
-        updateLatestNews(state, news) {
+        setLatestNews(state, news) {
             state.latestNews = news;
         },
 
-        updateMostPopular(state, popular) {
+        setMostPopular(state, popular) {
             state.mostPopular = popular;
+        }
+    },
+
+    actions: {
+        updateLatestNews({ commit }, latestNews) {
+            commit('setLatestNews', latestNews);
         },
+
+        updateMostPopular({ commit }, mostPopular) {
+            commit('setMostPopular', mostPopular);
+        }
     }
 }

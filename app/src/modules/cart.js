@@ -25,7 +25,7 @@ export default {
         }
     },
 
-    /* hvorfor?? spør alejandro */
+    /* hvorfor?? semantisk riktig */
     actions: {
         addToCart({commit}, book) {
             commit('add', book)

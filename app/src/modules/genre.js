@@ -33,5 +33,16 @@ export default {
         setCurrentGenre(state, currentGenre) {
             state.currentGenre = currentGenre;
         }
+    },
+
+    /* actions to avoid changing state directly  */
+    actions: {
+        updateGenreBooks({commit}, genresBooks) {
+            commit('setGenreBooks', genresBooks);
+        },
+
+        updateCurrentGenre({ commit }, currentGenre) {
+            commit('setCurrentGenre', currentGenre)
+        }
     }
 }
