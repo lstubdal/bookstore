@@ -16,7 +16,7 @@ export default {
             state.totalSum = 0; // reset value for each change in cart
 
             state.cart.forEach(book => {
-                state.totalSum += book.price;
+                state.totalSum += book.price * book.quantity;
             })
             return state.totalSum
         },
@@ -48,10 +48,18 @@ export default {
             })
         },
 
-       /*  increaseQuantity(state, book) {
-            book.quantity += 1;
-        } */
+        increase(state, index) {
+            state.cart[index].quantity += 1;
+            console.log('increase', state.cart[index].quantity)
+        },
 
+        decrease(state, index) {
+            if (state.cart[index].quantity === 1) {
+                state.cart.splice(index, 1); // remove book if zero
+            }
+            state.cart[index].quantity -= 1;
+            /* console.log('decrease', state.cart[index].quantity) */
+        }
     },
 
     actions: {
@@ -59,8 +67,17 @@ export default {
           commit('add', book);
         },
 
-        removeFromCart({commit}, book) {
-            commit('remove', book)
+        removeFromCart({commit}, book, index) {
+            commit('remove', book, index)
+        },
+
+        increaseQuantity({ commit }, index) {
+            commit('increase', index)
+        },
+
+        decreaseQuantity({ commit }, index) {
+            commit('decrease', index);
+            
         }
     }
 }
