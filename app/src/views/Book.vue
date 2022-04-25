@@ -1,5 +1,7 @@
 <template>
-    <div v-if="book" class="book"> 
+    <div v-if="book" class="book">
+        <BackToFrontpage /> 
+
         <div class="information">
             <img :src="book.cover.asset.url" alt="book cover" class="information__cover">
 
@@ -79,30 +81,30 @@
                 this.$store.dispatch('addToCart', book);
             }
         },
-        
-        /* created() {
-            return this.currentBook = this.books.find(book => book.slug.current === this.book_slug);
-        } */
     }
 </script>
 
 <style>
-/*     .container {
-        border: var(--default);
-        margin: var(--small);
-        font-family: var(--main-font);
-    } */
+    .book {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: var(--padding-medium);
+        position: relative;
+    }
 
     .information {
         display: flex;
         align-items: center;
         justify-content: space-around;
-        width: 90%;
+        width: 60%;
+        margin-top: 100px;
     }
 
     .information__cover {
-        width: 280px;
-        height: 440px;
+        width: 260px;
+        height: 410px;
     }
 
     .information__details {
@@ -138,14 +140,6 @@
         cursor: pointer;
     }
 
-    .book {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: var(--padding-xlarge);
-    }
 
     .book__seperator {
         width: 78%;
@@ -155,7 +149,7 @@
 
     .book__description {
         display: flex;
-        width: 78%;
+        width: 65%;
     }
 
     .book__description-text {

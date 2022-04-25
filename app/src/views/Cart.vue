@@ -1,9 +1,10 @@
 <template>
   <div class="cart">
-        <h2 class="cart__title">SHOPPINGCART</h2>
-
-        <div v-if="cart.length === 0" class="cart__emptyAlert">Your cart is empty!</div>
-        <section v-else class="cart__products" v-for="(book, index) in cart">
+      <BackToFrontpage />
+      <h2 class="cart__title">SHOPPINGCART</h2>
+      
+      <div v-if="cart.length === 0" class="cart__emptyAlert">Your cart is empty!</div>
+      <section v-else class="cart__products" v-for="(book, index) in cart">
             <div class="cart__product">
                 <img :src="book.cover.asset.url" class="cart__product-bookCover">
                 <h3>{{ book.title }}</h3>
@@ -35,11 +36,9 @@
 </template>
 
 <script>
-    export default {
-        mounted() {
-            this.$store.dispatch('getFromLocalStorage'); // update localstorage
-        },
+    import BackToFrontpage from '../components/BackToFrontpage.vue';
 
+    export default {
         computed: {
             cart() {
                 return this.$store.getters.getCart;
@@ -62,12 +61,17 @@
             decreaseQuantity(index, book) {
                 this.$store.dispatch('decreaseQuantity', index, book);
             }
+        },
+
+        components: {
+            BackToFrontpage
         }
     }
 </script>
 
 <style>
     .cart {
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;

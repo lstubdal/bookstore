@@ -1,5 +1,5 @@
 <template>
-  <RouterLink :to="{name: 'frontpage'}" class="backToFrontpage"> &#x2190; Go back to frontpage</RouterLink>
+  <RouterLink :to="{name: 'frontpage'}" class="backToFrontpage"> &#x2190; Back to frontpage</RouterLink>
 </template>
 
 <script>
@@ -10,6 +10,9 @@
 
 <style>
     .backToFrontpage {
+        position: absolute;
+        top: 0;
+        left: 10;
         padding: var(--padding-small);
         font-size: 1.8em;
         color: var(--highlight);
@@ -19,7 +22,7 @@
 
     .backToFrontpage:hover {
         color: var(--dark);
-        text-decoration: underline;
+        text-decoration: 1px underline;
     }
     
 </style>

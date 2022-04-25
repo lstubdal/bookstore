@@ -1,15 +1,18 @@
 <template>
     <div v-if="loading">LOADING BOOKS</div>
     <div v-else class="genreBooks">
+        <BackToFrontpage />
         <h1 class="genreBooks__title">{{ currentGenre }}</h1>
         
-        <main class="genreBooks__books">
-            <BookPreview  :book="book"  v-for="book in genreBooks" />
-        </main>
+        <section class="genreBooks__books">
+            <BookPreview  :book="book"  v-for="book in genreBooks" v-if="genreBooks.length !== 0" />
+            <span v-else class="genreBooks__books-warning">No books with til genre...</span>
+        </section>
     </div>
 </template>
 
 <script>
+    import BackToFrontpage from '../components/BackToFrontpage.vue';
     import BookPreview from '../components/BookPreview.vue';
     import query from '../groq/genreBooks.groq?raw';
     import viewMixin from '../mixins/viewMixin';
@@ -31,6 +34,7 @@
 
         components: {
             BookPreview,
+            BackToFrontpage
         },
 
         computed: {
@@ -53,6 +57,7 @@
 
 <style>
     .genreBooks {
+        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -67,6 +72,10 @@
     .genreBooks__books {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
+    }
+
+    .genreBooks__books-warning {
+        grid-column-start: 3;
     }
 
 </style>
