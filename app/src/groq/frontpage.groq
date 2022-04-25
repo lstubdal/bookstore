@@ -1,5 +1,8 @@
 {
     "latestNews": *[_type == 'book'] | order(yearOfPublication desc) {
+
+        _id,
+        
         title,
 
         author-> {
@@ -14,14 +17,18 @@
 
         price,
 
-        yearOfPublicaton,
+        yearOfPublication,
 
         slug {
             current
-        }
+        },
+
+        totalSold
     },
 
     "mostPopular": *[_type == 'book'] | order(totalSold desc){
+        _id,
+
         title,
     
         author-> {
@@ -34,10 +41,12 @@
             }
         },
 
+        totalSold,
+
         price,
 
         slug {
             current
-        }
+        }, 
     }
 }

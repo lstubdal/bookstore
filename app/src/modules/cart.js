@@ -35,6 +35,7 @@ export default {
                     ...book,     // get everything from book obj
                     quantity: 1  // add quantity property to object
                 }
+                console.log('book', book);
                 state.cart.push(bookWithQuantity);
                 console.log('book with quantity', bookWithQuantity);
             }   
@@ -92,11 +93,6 @@ export default {
         getFromLocalStorage({ commit }) {
             const parsedCartArray = JSON.parse(window.localStorage.getItem('books-cart')) // parse array back to use value 
             commit('setBooksInCart', parsedCartArray); // set parsed value to cart array
-        },
-
-        removeFromLocalStorage({commit, dispatch}, book){
-            /* commit('remove', book); // remove book from cart array
-            dispatch('setToLocalStorage'); // update key value(array) instead of deleting it/override */
         }
     }
 }

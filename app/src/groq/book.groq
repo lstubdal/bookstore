@@ -1,6 +1,8 @@
 
 *[slug.current == $slug][0] { 
     ...,
+
+    _id,
     
     title,
 
@@ -20,6 +22,8 @@
         }
     },
 
-    yearOfPublication
+    yearOfPublication,
+
+    totalSold
 }
         

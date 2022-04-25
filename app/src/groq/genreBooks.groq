@@ -2,6 +2,8 @@
     "currentGenre": *[slug.current == $slug][0],
 
     "genreBooks": *[_type == "book" && genre._ref in *[_type=="genre" && slug.current==$slug]._id ]{
+        _id,
+        
         title,
 
         author-> {
@@ -18,6 +20,8 @@
 
         slug {
             current
-        }
+        },
+
+        totalSold
     }
 }

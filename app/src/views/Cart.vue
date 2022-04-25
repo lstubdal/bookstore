@@ -30,15 +30,18 @@
 
         <section v-if="totalSum !== 0" class="cart__checkout">
             <span class="cart__checkout-sum">Total sum: {{ totalSum }} kr</span>
-            <button class="cart__checkout-button">GO TO CHECKOUT</button>
+            <button class="cart__checkout-button" @click="updateTotalSoldSanity">GO TO CHECKOUT</button>
         </section>
     </div>
 </template>
 
 <script>
     import BackToFrontpage from '../components/BackToFrontpage.vue';
+    import viewMixin from '../mixins/viewMixin';
 
     export default {
+        mixins: [viewMixin],
+
         computed: {
             cart() {
                 return this.$store.getters.getCart;
@@ -60,6 +63,13 @@
 
             decreaseQuantity(index, book) {
                 this.$store.dispatch('decreaseQuantity', index, book);
+            },
+
+            updateTotalSoldSanity() {
+                this.cart.forEach(book => {
+                    console.log(book._id);
+                    this.updateTotalSold(book._id);
+                })
             }
         },
 
@@ -105,7 +115,6 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        padding: var(--padding-large);
     }
 
     .cart__product-bookCover {
