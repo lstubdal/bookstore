@@ -36,6 +36,15 @@ export default {
             this.loading = false;
         },
 
+        async sanityFetchGenres(query) {
+            this.result = await sanity.fetch(query);
+            this.$store.dispatch('updateGenres', this.result);
+            
+            console.log('genres!!!', this.result);
+
+            this.loading = false;
+        },
+
         updateTotalSold(bookID) {
             // fetch all book ids
             sanity.patch(bookID) // document id to patch

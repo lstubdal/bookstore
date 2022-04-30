@@ -21,16 +21,12 @@
 </template>
 
 <script>
-    import sanityClient from '@sanity/client';
-
-    const sanity = sanityClient({ // create new sanityClient
-        projectId: 'cuc1osaz', // unique project id
-        dataset: 'production',
-        apiVersion: '2022-04-02', // date of sClient created
-        useCdn: 'false' // false local / true netlify
-    })
+    import viewMixin from '../mixins/viewMixin';
+    import query from '../groq/genres.groq?raw';
 
     export default {
+        mixins: [viewMixin],
+
         data() {
             return {
                 title: 'THE NORWEGIAN BOOKSTORE'
@@ -38,17 +34,7 @@
         },
 
         async created() {
-            const genreQuery =  ` 
-                *[_type == 'genre'] {
-                        name,
-                        
-                        slug {
-                            current
-                        }
-                    }`
-            
-            const genres = await sanity.fetch(genreQuery)
-            this.$store.commit('setGenres', genres);
+            await this.sanityFetchGenres(query);
         },
 
         computed: {
@@ -61,7 +47,7 @@
             },
 
             totalItems() {
-                return this.cart.length === 0 ? 'empty' : this.cart.length
+                return this.cart.length === 0 ? 'empty' : this.cart.length;
             }
         }
     }

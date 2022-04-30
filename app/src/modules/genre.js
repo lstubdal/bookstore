@@ -43,6 +43,10 @@ export default {
 
         updateCurrentGenre({ commit }, currentGenre) {
             commit('setCurrentGenre', currentGenre)
-        }
+        },
+
+        updateGenres({ commit}, genres) {
+            commit('setGenres', genres)
+        } 
     }
 }
