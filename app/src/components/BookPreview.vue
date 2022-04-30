@@ -5,6 +5,7 @@
             <p class="preview__author">{{ book.author.name }}</p>
             <img :src="book.cover.asset.url" alt="book cover" class="preview__image">
             <p class="preview__price">{{ book.price }},-</p>
+            <div>TOTAL SOLD{{ book.totalSold }}</div>
         </RouterLink>    
 
         <button class="preview__addToCart" @click="addToCart(book)">
