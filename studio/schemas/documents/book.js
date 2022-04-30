@@ -19,7 +19,7 @@ export default {
             title: 'Book cover (image)',
             name: 'cover',
             type: 'image',
-            validation: Rule => Rule.required().min(1).error('Missing author')
+            validation: Rule => Rule.required().error('Missing image cover')
         },
         
         {
@@ -28,7 +28,7 @@ export default {
             type: 'text',
             validation: Rule => [ 
                 Rule.required().min(10).error('The title needs at least 10 character'),
-                Rule.max(1000).error('Titles with more than 1000 characters are too long')
+                Rule.max(5000).error('Titles with more than 1000 characters are too long')
             ]
         }, 
         {
@@ -36,20 +36,20 @@ export default {
             name: 'genre',
             type: 'reference',
             to: [{ type: 'genre' }],
-            validation: Rule => Rule.required().min(1).error('Missing genre')
+            validation: Rule => Rule.required().error('Missing genre')
         },
         {
             title: 'Publisher',
             name: 'publisher',
             type: 'reference',
             to: [{ type: 'publisher' }],
-            validation: Rule => Rule.required().min(1).error('Missing publisher')
+            validation: Rule => Rule.required().error('Missing publisher')
         },
         {
             title: 'Year of publication',
             name: 'yearOfPublication',
             type: 'number',
-            validation: Rule => Rule.required().min(4).max(4).error('Missing published year. Format YYYY')
+            /* valdiation */
         },
         {
             title: 'Price',
@@ -75,7 +75,7 @@ export default {
             name: 'totalSold',
             type: 'number',
             description: 'Updated from website',
-            readOnly: true
+            /* readOnly: true */
         }
     ]
 }
