@@ -99,8 +99,9 @@ export default {
             commit('setBooksInCart', parsedCartArray); // set parsed value to cart array
         },
 
-        emptyCartInLocalStorage({ commit }) {
+        emptyCartInLocalStorage({ commit, dispatch }) {
             commit('emptyCart') // empty cart when checkout, but not deleting array from local storage
+            dispatch('updateLocalStorage');
         }
 
     }
