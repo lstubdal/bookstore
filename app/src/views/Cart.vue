@@ -4,6 +4,7 @@
       <h2 class="cart__title">SHOPPINGCART</h2>
       
       <div v-if="cart.length === 0" class="cart__emptyAlert">Your cart is empty!</div>
+      
       <section v-else class="cart__products" v-for="(book, index) in cart">
             <div class="cart__product">
                 <img :src="book.cover.asset.url" class="cart__product-bookCover">
@@ -42,6 +43,11 @@
     export default {
         mixins: [viewMixin],
 
+        created() {
+            console.log('HER', this.$store.getters.getCartLength)
+
+        },
+
         computed: {
             cart() {
                 return this.$store.getters.getCart;
@@ -67,8 +73,7 @@
 
             updateTotalSoldSanity() {
                 this.cart.forEach(book => {
-                    console.log(book._id);
-                    this.updateTotalSold(book._id);
+                    this.updateTotalSold(book._id, book);
                 })
 
                 this.$store.dispatch('emptyCartInLocalStorage');

@@ -45,10 +45,10 @@ export default {
             this.loading = false;
         },
 
-        updateTotalSold(bookID) {
+        updateTotalSold(bookID, book) {
             // fetch all book ids
             sanity.patch(bookID) // document id to patch
-                  .inc({ totalSold: 1 }) // increment total sold by 1 when "bought"
+                  .inc({ totalSold: book.quantity}) // increment total sold by 1 when "bought"
                   .commit() // perform patch, return promise
                   .then((updatedTotalSold) => {
                       console.log('oppdatert!', updatedTotalSold)
