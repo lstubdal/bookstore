@@ -63,6 +63,10 @@ export default {
 
         setBooksInCart(state, books) {
             state.cart = books;
+        },
+
+        emptyCart(state) {
+            state.cart = [];
         }
     },
 
@@ -93,6 +97,11 @@ export default {
         getFromLocalStorage({ commit }) {
             const parsedCartArray = JSON.parse(window.localStorage.getItem('books-cart')) // parse array back to use value 
             commit('setBooksInCart', parsedCartArray); // set parsed value to cart array
+        },
+
+        emptyCartInLocalStorage({ commit }) {
+            commit('emptyCart') // empty cart when checkout, but not deleting array from local storage
         }
+
     }
 }

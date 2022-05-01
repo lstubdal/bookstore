@@ -70,6 +70,9 @@
                     console.log(book._id);
                     this.updateTotalSold(book._id);
                 })
+
+                this.$store.dispatch('emptyCartInLocalStorage');
+                console.log('empty cart?', this.cart);
             }
         },
 
