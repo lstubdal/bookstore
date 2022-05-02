@@ -37,4 +37,16 @@
     .footer__text {
         font-weight: var(--details);
     }
+
+    @media screen and (max-width: 1300px) {
+        .footer {
+            height: 25%;
+            flex-direction: column;
+            padding: var(--padding-small);
+        }
+
+        .footer__contactUs, .footer__text{
+            font-size: 1em;
+        }
+    }
 </style>
