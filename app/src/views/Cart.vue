@@ -1,27 +1,32 @@
 <template>
   <div class="cart">
-      <BackToFrontpage />
+      <BackToFrontpage class="cart__backToFrontpage" />
+
       <h2 class="cart__title">SHOPPINGCART</h2>
-      
       <div v-if="cart.length === 0" class="cart__emptyAlert">Your cart is empty!</div>
       
       <section v-else class="cart__products" v-for="(book, index) in cart">
             <div class="cart__product">
                 <img :src="book.cover.asset.url" class="cart__product-bookCover">
-                <h3>{{ book.title }}</h3>
-                <span>{{ book.price }},-</span>
 
-                <div class="quantity">
-                    <button @click="decreaseQuantity(index, book)">
-                        <img src="/icons/decrease.svg" alt="increase button">
-                    </button>
+                <div class="cart__product-information">
+                    <span>{{ book.price }},-</span>
 
-                    <span>{{ book.quantity }}</span>
+                    <h3 class="cart__product-title">{{ book.title }}</h3>
 
-                    <button @click="increaseQuantity(index)">
-                        <img src="/icons/increase.svg" alt="increase button">
-                    </button>
+                    <div class="quantity">
+                        <button @click="decreaseQuantity(index, book)">
+                            <img src="/icons/decrease.svg" alt="increase button">
+                        </button>
+
+                        <span>{{ book.quantity }}</span>
+
+                        <button @click="increaseQuantity(index)">
+                            <img src="/icons/increase.svg" alt="increase button">
+                        </button>
+                    </div>
                 </div>
+
 
                 <button class="cart__product-remove" @click="removeFromCart(book)">
                     <img src="/icons/remove.svg" alt="trash icon">
@@ -89,14 +94,13 @@
 
 <style>
     .cart {
-        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-        min-height: 50%;
+        min-height: 60%;
         background-color: var(--light);
-        margin: var(--small);
+        position: relative; /* for backToFrontpage comp. */
         padding: var(--padding-medium);
         cursor: pointer;
     }
@@ -111,22 +115,33 @@
     }
 
     .cart__products {
-        width: 100%;
         display: flex;
         justify-content: center;
         font-size: 1.4em;
-        padding: var(--padding-medium);
+        padding: var(--padding-small);
+        margin: 2% 20%;
     }
 
     .cart__product {
-        width: 80%;
         display: flex;
         justify-content: space-around;
         align-items: center;
     }
 
+    .cart__product-information {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cart__product-title {
+        color: var(--highlight);
+        padding: var(--padding-medium) 0%var(--padding-large) 0%;
+    }
+
     .cart__product-bookCover {
-        width: 10%;
+        width: 20%;
+        padding: var(--padding-small);
     }
 
     .cart__product-remove {
@@ -135,6 +150,8 @@
     }
 
     .cart__product-remove img {
+        width: 50%;
+        height: 50%;
         background: transparent;
         border: none;
     }
@@ -185,4 +202,35 @@
         color: var(--light);
         background: var(--highlight);
     }
+
+    @media screen and (max-width: 1200px) {
+        .cart__title {
+            font-size: 2em;
+        }
+
+        .cart__checkout-sum {
+            font-size: 1em;
+            padding: var(--padding-medium);
+        }
+
+        .cart__backToFrontpage {
+            display: none;
+        }
+
+        .cart__checkout {
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .cart__products {
+            flex-direction: column;
+        }
+
+        .cart__product-title {
+            font-size: 1em;
+        }
+        
+    }
+
 </style>

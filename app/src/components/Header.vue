@@ -178,7 +178,7 @@
         }
     }
 
-    @media screen and (max-width: 870px) {
+    @media screen and (max-width: 1000px) {
         .header {
             height: 16vh;
         }
