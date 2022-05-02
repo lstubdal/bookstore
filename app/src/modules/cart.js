@@ -20,24 +20,27 @@ export default {
             })
             return state.totalSum
         },
+/* 
+        getCartLength(state) {
+            return state.cart.length
+        } */
     },
 
     mutations: {
         add(state, book) {
+            
+           
             const bookIndex = state.cart.findIndex(bookInCart => bookInCart.title === book.title);
 
             if(bookIndex !== -1) { // if book found in cart
                 state.cart[bookIndex].quantity += 1;
-                console.log('qiantuty w index', state.cart[bookIndex].quantity);
 
             } else {
                 const bookWithQuantity = {
                     ...book,     // get everything from book obj
                     quantity: 1  // add quantity property to object
                 }
-                console.log('book', book);
                 state.cart.push(bookWithQuantity);
-                console.log('book with quantity', bookWithQuantity);
             }   
         },
 
@@ -50,15 +53,18 @@ export default {
         },
 
         increase(state, index) {
-            state.cart[index].quantity += 1;
-            console.log('increase', state.cart[index].quantity)
+            if(state.cart[index]) {
+               state.cart[index].quantity += 1; 
+            }
         },
 
         decrease(state, index) {
-            if (state.cart[index].quantity === 1) {
+            if (state.cart[index] && state.cart[index].quantity > 0) {
+                state.cart[index].quantity -= 1;
+            }
+            if (state.cart[index] && state.cart[index].quantity === 0) {
                 state.cart.splice(index, 1); // remove book if zero quantity
             }
-            state.cart[index].quantity -= 1;
         },
 
         setBooksInCart(state, books) {
@@ -95,8 +101,10 @@ export default {
         },
 
         getFromLocalStorage({ commit }) {
-            const parsedCartArray = JSON.parse(window.localStorage.getItem('books-cart')) // parse array back to use value 
-            commit('setBooksInCart', parsedCartArray); // set parsed value to cart array
+            if(localStorage.getItem('books-cart') && localStorage.getItem('books-cart').length > 0) {
+                const parsedCartArray = JSON.parse(window.localStorage.getItem('books-cart')) // parse array back to use value 
+                commit('setBooksInCart', parsedCartArray); // set parsed value to cart array
+            }
         },
 
         emptyCartInLocalStorage({ commit, dispatch }) {
