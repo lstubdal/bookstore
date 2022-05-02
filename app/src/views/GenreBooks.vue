@@ -78,9 +78,14 @@
         grid-column-start: 3;
     }
 
-    @media screen and (max-width: 870px) {
+    @media screen and (max-width: 1000px) {
         .genreBooks__backToFrontpage {
             display: none;;
+        }
+
+        .genreBooks__books {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
         }
     }
 
