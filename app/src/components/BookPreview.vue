@@ -5,7 +5,6 @@
             <p class="preview__author">{{ book.author.name }}</p>
             <img :src="book.cover.asset.url" alt="book cover" class="preview__image">
             <p class="preview__price">{{ book.price }},-</p>
-            <div>TOTAL SOLD{{ book.totalSold }}</div>
         </RouterLink>    
 
         <button class="preview__addToCart" @click="addToCart(book)">
@@ -39,8 +38,8 @@
         align-items: center;
     }
     .preview__book {
-        height: 300px;
-        width: 210px;
+        height: 100%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -77,7 +76,7 @@
 
     .preview__addToCart {
         height: 15%;
-        width: 65%;
+        width: 60%;
         display: flex;
         align-items: center;
         justify-content: space-evenly;
@@ -94,5 +93,39 @@
 
     .preview__addToCart p {
         font-size: 1.5em;
+    }
+
+    @media screen and (max-width: 1000px) {
+        .preview__title {
+            font-size: 1em;
+        }
+
+        .preview__author {
+            font-size: 0.9em;
+        }
+
+        .preview__addToCart p {
+           font-size: 0.8em;
+        }  
+    }
+
+    @media screen and (max-width: 850px) {
+        .preview__title {
+            padding-top: 0%;
+            font-size: 0.8em;
+        }
+
+        .preview__author, .preivew__price {
+            font-size: 0.7em;
+        }
+
+        .preview__addToCart p {
+           font-size: 0.8em;
+        }  
+
+        .preview__image {
+            height: 60%;
+            width: 60%;
+        }
     }
 </style>

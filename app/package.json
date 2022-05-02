@@ -1,10 +1,10 @@
 {
-  "name": "vue_boilerplate",
+  "name": "vue_boilerplateeee",
   "version": "1.0.0",
   "description": "Vue template",
   "main": "vite.config.js",
   "scripts": {
-    "dev": "vite --mode development",
+    "dev": "vite --mode development --host",
     "build": "vite build --mode production",
     "preview": "vite preview --host"
   },

@@ -12,11 +12,7 @@
 
     export default {
 		mounted() {
-			if (this.cart.length === 0) {
-				this.$store.dispatch('updateLocalStorage'); // if empty add array to local storage
-			} else {
-				this.$store.dispatch('getFromLocalStorage');  // if not, get data from cart
-			}
+			this.$store.dispatch('getFromLocalStorage');
 		},
 		
 		components: {
@@ -26,7 +22,7 @@
 
 		computed: {
 			cart() {
-				return this.$store.getts.getCart;
+				return this.$store.getters.getCart;
 			}
 		}
     }

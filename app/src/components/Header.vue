@@ -179,7 +179,10 @@
     }
 
     @media screen and (max-width: 870px) {
-        
+        .header {
+            height: 16vh;
+        }
+
         .genres {
             display: none;
         }
@@ -227,6 +230,28 @@
         
         .header__title h1 {
             font-size: 1.5em;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+         .header {
+            height: 10vh;
+        }
+
+        .header__title {
+            font-size: 0.8em;
+        }
+
+        .header__cart-icon {
+            flex-direction: column;
+            align-items: center;
+            padding-top: var(--margin-medium);
+          
+        }
+
+        .header__cart-icon img {
+            width: 50%;
+            height: 50%;
         }
     }
 </style>

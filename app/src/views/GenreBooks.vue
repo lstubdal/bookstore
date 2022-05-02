@@ -1,7 +1,7 @@
 <template>
     <div v-if="loading">LOADING BOOKS</div>
     <div v-else class="genreBooks">
-        <BackToFrontpage />
+        <BackToFrontpage class="genreBooks__backToFrontpage"/>
         <h1 class="genreBooks__title">{{ currentGenre }}</h1>
         
         <section class="genreBooks__books">
@@ -76,6 +76,12 @@
 
     .genreBooks__books-warning {
         grid-column-start: 3;
+    }
+
+    @media screen and (max-width: 870px) {
+        .genreBooks__backToFrontpage {
+            display: none;;
+        }
     }
 
 </style>

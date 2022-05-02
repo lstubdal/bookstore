@@ -1,6 +1,6 @@
 <template>
     <div v-if="book" class="book">
-        <BackToFrontpage /> 
+        <BackToFrontpage class="book__backToFrontpage" /> 
 
         <div class="information">
             <img :src="book.cover.asset.url" alt="book cover" class="information__cover">
@@ -103,8 +103,8 @@
     }
 
     .information__cover {
-        width: 260px;
-        height: 410px;
+        width: 30%;
+        height: 50%;
     }
 
     .information__details {
@@ -127,7 +127,7 @@
     .information__addToCart {
         display: flex;
         justify-content: center;
-        align-content: center;
+        align-items: center;
         background-color: transparent;
         color: var(--highlight);
         font-size: 1.5em;
@@ -139,7 +139,6 @@
         padding: var(--padding-large);
         cursor: pointer;
     }
-
 
     .book__seperator {
         width: 78%;
@@ -157,7 +156,27 @@
     }
 
     .book__description-button {
+        padding: var(--padding-medium);
         background-color: transparent;
-        border: 2px solid var(--highlight);
+        border: 2px solid var(--dark);
+        color: var(--highlight);
+        margin-top: var(--margin-large);
+    }
+
+    @media screen and (max-width: 1000px) {
+        .information {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .information__details, .information__addToCart  {
+            margin-top: 10%;
+        }
+    }
+
+    @media screen and (max-width: 870px) {
+        .book__backToFrontpage {
+            display: none;
+        }
     }
 </style>
