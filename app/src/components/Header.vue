@@ -5,15 +5,33 @@
         </RouterLink>
 
         <RouterLink :to="{ name: 'cart'}" class="header__cart">
-            <img src="/icons/cart.svg" alt="cart icon">
-            <p class="header__cart-items"> ({{ totalItems }})</p>
-            <p>shoppingcart</p>
+            <div class="header__cart-icon">
+                <img src="/icons/cart.svg" alt="cart icon">
+                <p class="header__cart-items"> ({{ totalItems }})</p>
+            </div>
+
+            <p class="header__cart-text">shoppingcart</p>
         </RouterLink>
     </header>
 
     <nav class="genres">
         <div v-for="genre in genres">
             <RouterLink :to="{ name: 'genre', params: {genre_slug: genre.slug.current }}" class="genres__genre" active-class="active">
+                <p>{{ genre.name }}</p>
+            </RouterLink>
+        </div>
+    </nav>
+
+    <nav class="genres--mobile">
+        <div class="genres__hamburger genres__hamburger-content">
+            <button class="genres__hamburger-content" @click="toggleMenu">
+                <span>menu</span>
+                <img src="/icons/hamburger.svg" alt="hamburger menu">   
+            </button>
+        </div>
+
+        <div v-if="menuCliked" v-for="genre in genres" class="genres__genre--mobile">
+            <RouterLink :to="{ name: 'genre', params: {genre_slug: genre.slug.current }}" class="genres__genre--mobile" active-class="active">
                 <p>{{ genre.name }}</p>
             </RouterLink>
         </div>
@@ -29,7 +47,8 @@
 
         data() {
             return {
-                title: 'THE NORWEGIAN BOOKSTORE'
+                title: 'THE NORWEGIAN BOOKSTORE',
+                menuCliked: false 
             }
         },
 
@@ -48,6 +67,12 @@
 
             totalItems() {
                 return this.cart.length === 0 ? 'empty' : this.cart.length;
+            },
+        },
+        methods: {
+            toggleMenu() {
+                this.menuCliked = !this.menuCliked;
+                console.log(this.menuCliked);
             }
         }
     }
@@ -76,14 +101,20 @@
 
     .header__cart {
         height: 100%;
-        display: grid;
-        grid-template-columns: repeat(2, 33%);
+        width: 15%;
+        display: flex;
+        flex-direction: column;
         align-items: center;
-        padding: var(--padding-medium) 0% var(--padding-medium) var(--padding-medium) ;
+        justify-content: center;
+        color: var(--highlight);
         border-left: var(--default);
         text-decoration: none;
-        color: var(--highlight);
         cursor: pointer;
+        padding: var(--padding-xsmall);
+    }
+
+    .header__cart-icon {
+        display: flex;
     }
 
     .header__cart:hover {
@@ -105,6 +136,14 @@
         padding: var(--padding-small);
     }
 
+    .genres--mobile {
+        display: none;
+    }
+
+    .genres__hamburger {
+        display: none;
+    }
+
     .genres__genre {
         padding: var(--padding-medium);
         font-size: 1.5em;
@@ -116,5 +155,69 @@
     .genres__genre:hover, .active {
         text-decoration: underline 1px;
         color: var(--highlight);
+    }
+
+    @media screen and (max-width: 1100px) {
+        .genres__genre {
+            font-size: 1.2em;
+        }
+
+        .header__title h1 {
+            font-size: 2em;
+        }
+
+        .header__cart-text {
+            display: none;
+        }
+  
+    }
+
+
+    @media screen and (max-width: 870px) {
+        
+        .genres {
+            display: none;
+        }
+
+        .genres__genre {
+            display: none;
+        }
+
+        .genres--mobile {
+            display: block;
+
+        }
+
+
+        .genres__hamburger {
+            display: block;
+            width: 100%;
+            background-color: none;
+        }
+
+        .genres__hamburger-content {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            cursor: pointer;
+            padding: var(--padding-small);
+        }
+
+        .genres__hamburger button {
+            color: var(--highlight);
+            background: none; 
+            border: none;
+        }
+
+        .genres__genre--mobile {
+           text-align: center;
+           color: var(--dark);
+           text-decoration: none;
+           padding: var(--padding-xsmall);         
+        } 
+        
+        .header__title h1 {
+            font-size: 1.5em;
+        }
     }
 </style>
