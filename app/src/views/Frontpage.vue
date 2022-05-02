@@ -2,24 +2,20 @@
     <div v-if="loading" class="loadingPage">Loading all the books...</div> 
     <div v-else class="frontpage">
         <main class="frontpage__main">
-            <section class="frontpage__news">
+            <!-- make component?? -->
+            <section class="frontpage__books">
                 <h2>LATEST NEWS</h2>
-
                 <div v-for="(book,index) in latestNews">
-                    <div v-if="index < maxPreviewBooks">
-                        <BookPreview :book="book" />
-                    </div>
+                    <BookPreview :book="book" v-if="index < maxPreviewBooks" />
                 </div>
             </section>
 
-            <section class="frontpage__popular" >
-                <div v-for="(book, index) in mostPopular">
-                    <div v-if="index < maxPreviewBooks" >
-                        <BookPreview :book="book" />
-                    </div>
-                </div>
-
+            <section class="frontpage__books">
                 <h2>MOST POPULAR</h2>
+
+                <div v-for="(book, index) in mostPopular">
+                    <BookPreview :book="book" v-if="index < maxPreviewBooks" />
+                </div>
             </section>
         </main>
     </div>
@@ -85,28 +81,43 @@
         width: 100%;
     }
 
-    .frontpage__news, 
-    .frontpage__popular {
+    .frontpage__books {
         position: relative;
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
         padding: var(--padding-medium);
     }
 
-    .frontpage__news h2, 
-    .frontpage__popular h2 {
-        width: 25%;
+    .frontpage__books h2 {
+        color: var(--highlight);
         font-size: 1.7em;
         font-weight: var(--undertitle);
-        text-decoration: underline 2px;
-        padding-top: 2%;
+        padding-top: 10%;
     }
 
-    .frontpage__news {
-        justify-content: flex-start;
+
+    @media screen and (max-width: 850px) {
+       .frontpage__books {
+            grid-template-columns: repeat(4, 1fr);
+       }
+
+       .frontpage__books h2 {
+           grid-area: 1 / span 4;
+           font-size: 1.5em;
+           text-align: center;
+           padding-top: 5%;
+           
+       }
     }
 
-    .frontpage__popular {
-        justify-content: flex-end;
+    @media screen and (max-width: 600px) {
+       .frontpage__books {
+            grid-template-columns: repeat(2, 1fr);
+       }
+
+       .frontpage__books h2 {
+           grid-area: 1 / span 2;
+       }
     }
 
 

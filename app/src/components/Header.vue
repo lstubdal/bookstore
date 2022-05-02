@@ -24,6 +24,7 @@
 
     <nav class="genres--mobile">
         <div class="genres__hamburger genres__hamburger-content">
+            <BackToFrontpage  v-if ="this.$route.name !== 'frontpage'" class="genre__backToFrontpage" />
             <button class="genres__hamburger-content" @click="toggleMenu">
                 <span>menu</span>
                 <img src="/icons/hamburger.svg" alt="hamburger menu">   
@@ -41,6 +42,7 @@
 <script>
     import viewMixin from '../mixins/viewMixin';
     import query from '../groq/genres.groq?raw';
+    import BackToFrontpage from '../components/BackToFrontpage.vue';
 
     export default {
         mixins: [viewMixin],
@@ -48,7 +50,7 @@
         data() {
             return {
                 title: 'THE NORWEGIAN BOOKSTORE',
-                menuCliked: false 
+                menuCliked: false
             }
         },
 
@@ -67,13 +69,18 @@
 
             totalItems() {
                 return this.cart.length === 0 ? 'empty' : this.cart.length;
-            },
+            }
         },
+
         methods: {
             toggleMenu() {
                 this.menuCliked = !this.menuCliked;
                 console.log(this.menuCliked);
             }
+        },
+
+        components: {
+            BackToFrontpage
         }
     }
 </script>
@@ -169,9 +176,7 @@
         .header__cart-text {
             display: none;
         }
-  
     }
-
 
     @media screen and (max-width: 870px) {
         
@@ -185,9 +190,13 @@
 
         .genres--mobile {
             display: block;
-
         }
 
+        .genre__backToFrontpage {
+            position: relative;
+            font-size: 1.4em;
+            margin-top: 0%;
+        }
 
         .genres__hamburger {
             display: block;
@@ -197,7 +206,7 @@
 
         .genres__hamburger-content {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             align-items: center;
             cursor: pointer;
             padding: var(--padding-small);
