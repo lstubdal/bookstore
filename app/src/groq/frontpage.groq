@@ -1,52 +1,38 @@
 {
     "latestNews": *[_type == 'book'] | order(yearOfPublication desc) {
-
         _id,
-        
         title,
-
         author-> {
             name
         },
-
         cover {
             asset-> {
                 url
             }
         },
-
         price,
-
         yearOfPublication,
-
         slug {
             current
         },
-
         totalSold
     },
 
     "mostPopular": *[_type == 'book'] | order(totalSold desc){
         _id,
-
         title,
-    
         author-> {
             name
         },
-
         cover {
             asset-> {
                 url
             }
         },
-
         totalSold,
-
         price,
-
         slug {
             current
-        }, 
+        }
     }
 }

@@ -1,7 +1,5 @@
 *[_type == 'genre'] {
-
     name,
-    
     slug {
         current
     }

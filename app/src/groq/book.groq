@@ -1,29 +1,21 @@
 
 *[slug.current == $slug][0] { 
     ...,
-
     _id,
-    
     title,
-
     author-> {
         name   
     },
-    
     price,
-
     publisher-> {
         name
     },
-
     cover {
         asset-> {
             url
         }
     },
-
     yearOfPublication,
-
     totalSold
 }
         
