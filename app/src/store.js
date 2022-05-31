@@ -6,19 +6,7 @@ import book from './modules/book.js';
 export default {
     state() {
         return {
-            allBooks: []
-        }
-    },
-
-    getters: {
-        getAllBooks(state) {
-            return state.allBooks;
-        }
-    },
-
-    mutations: {
-        setBooks(state, books) {
-            state.allBooks = books;
+          
         }
     },
 
