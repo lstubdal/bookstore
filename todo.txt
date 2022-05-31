@@ -1,0 +1,10 @@
+- bugfix: reload
+- localStorage
+- fix components!
+- read more styling & position
+- nested routes
+- genres
+- mixins
+- remove from cart
+- routing => locked
+- active link
