@@ -27,7 +27,6 @@
                     </div>
                 </div>
 
-
                 <button class="cart__product-remove" @click="removeFromCart(book)">
                     <img src="/icons/remove.svg" alt="trash icon">
                 </button>
@@ -47,11 +46,6 @@
 
     export default {
         mixins: [viewMixin],
-
-        created() {
-            console.log('HER', this.$store.getters.getCartLength)
-
-        },
 
         computed: {
             cart() {
@@ -82,7 +76,6 @@
                 })
 
                 this.$store.dispatch('emptyCartInLocalStorage');
-                console.log('empty cart?', this.cart);
             }
         },
 

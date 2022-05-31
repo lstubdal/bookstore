@@ -47,9 +47,10 @@
         mixins: [viewMixin],
 
         async created() { 
-            await this.sanityFetchBook(query, {
+            await this.sanityFetch(query, {
                 slug: this.$route.params.book_slug
-            }) 
+            });
+            this.$store.dispatch('updateCurrentBook', this.result);
         },
 
         props: {

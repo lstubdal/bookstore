@@ -40,7 +40,9 @@
         },
 
         async created() {
-            await this.sanityFetchFrontpage(query)
+            await this.sanityFetch(query);
+            this.$store.dispatch('updateLatestNews', this.result.latestNews);
+            this.$store.dispatch('updateMostPopular', this.result.mostPopular);
         },
 
         computed: {

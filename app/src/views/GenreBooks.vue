@@ -6,7 +6,7 @@
         
         <section class="genreBooks__books">
             <BookPreview  :book="book"  v-for="book in genreBooks" v-if="genreBooks.length !== 0" />
-            <span v-else class="genreBooks__books-warning">No books with til genre...</span>
+            <span v-else class="genreBooks__books-warning">No books with this genre...</span>
         </section>
     </div>
 </template>
@@ -21,9 +21,11 @@
         mixins: [viewMixin],
 
         async created() {
-            await this.sanityFetchGenreBooks(query,{
+            await this.sanityFetch(query,{
                 slug: this.$route.params.genre_slug
             })
+            this.$store.dispatch('updateCurrentGenre', this.result.currentGenre.name);
+            this.$store.dispatch('updateGenreBooks', this.result.genreBooks);
         },
 
         props: {
