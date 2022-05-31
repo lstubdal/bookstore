@@ -1,5 +1,5 @@
 <template>
-  <div class="class="loadingPage"">Loading all the books...</div>
+  <div class="loadingPage">Loading all the books...</div>
 </template>
 
 <script>

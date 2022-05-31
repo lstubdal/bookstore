@@ -2,6 +2,7 @@
     <LoadingPage v-if="loading" />
     <div v-else class="genreBooks">
         <BackToFrontpage class="genreBooks__backToFrontpage"/>
+        
         <h1 class="genreBooks__title">{{ currentGenre }}</h1>
         
         <section class="genreBooks__books">

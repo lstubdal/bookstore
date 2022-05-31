@@ -78,7 +78,7 @@
 
     .preview__addToCart {
         height: 15%;
-        width: 60%;
+        width: 70%;
         display: flex;
         align-items: center;
         justify-content: space-evenly;
@@ -94,7 +94,7 @@
     }
 
     .preview__addToCart p {
-        font-size: 1.5em;
+        font-size: 1.4em;
     }
 
     @media screen and (max-width: 1000px) {
