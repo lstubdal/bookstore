@@ -1,11 +1,11 @@
 <template>
-  <div class="footer">
+  <footer class="footer">
       <h2 class="footer__title">{{ title }}</h2>
       <p class="footer__contactUs">{{ contactUs }}</p>
       <p class="footer__text">or</p>
       <p class="footer__text">CHECKOUT:</p>
-      <img src="/icons/some.svg" alt="some links">
-  </div>
+      <img src="/icons/some.svg" alt="social media links">
+  </footer>
 </template>
 
 <script>
