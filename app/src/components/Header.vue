@@ -14,56 +14,21 @@
         </RouterLink>
     </header>
 
-    <nav class="genres">
-        <div v-for="genre in genres">
-            <RouterLink :to="{ name: 'genre', params: {genre_slug: genre.slug.current }}" class="genres__genre" active-class="active">
-                <p>{{ genre.name }}</p>
-            </RouterLink>
-        </div>
-    </nav>
-
-    <nav class="genres--mobile">
-        <div class="genres__hamburger genres__hamburger-content">
-            <BackToFrontpage  v-if ="this.$route.name !== 'frontpage'" class="genre__backToFrontpage" />
-            <button class="genres__hamburger-content" @click="toggleMenu">
-                <span>menu</span>
-                <img src="/icons/hamburger.svg" alt="hamburger menu">   
-            </button>
-        </div>
-
-        <div v-if="menuCliked" v-for="genre in genres" class="genres__genre--mobile">
-            <RouterLink :to="{ name: 'genre', params: {genre_slug: genre.slug.current }}" class="genres__genre--mobile" active-class="active">
-                <p>{{ genre.name }}</p>
-            </RouterLink>
-        </div>
-    </nav>
+    <NavigationGenre />   
 </template>
 
 <script>
-    import viewMixin from '../mixins/viewMixin';
-    import query from '../groq/genres.groq?raw';
     import BackToFrontpage from '../components/BackToFrontpage.vue';
+    import NavigationGenre from '../components/NavigationGenre.vue';
 
     export default {
-        mixins: [viewMixin],
-
         data() {
             return {
                 title: 'THE NORWEGIAN BOOKSTORE',
-                menuCliked: false
             }
         },
 
-        async created() {
-            await this.sanityFetch(query);
-            this.$store.dispatch('updateGenres', this.result);
-        },
-
         computed: {
-            genres() {
-                return this.$store.getters.getGenres;
-            },
-
             cart() {
                 return this.$store.getters.getCart;
             },
@@ -73,14 +38,9 @@
             }
         },
 
-        methods: {
-            toggleMenu() {
-                this.menuCliked = !this.menuCliked;
-            }
-        },
-
         components: {
-            BackToFrontpage
+            BackToFrontpage,
+            NavigationGenre
         }
     }
 </script>
@@ -133,42 +93,7 @@
         margin: var(--margin-medium);
     }
 
-    .genres {
-        height: 12vh;
-        width: 100%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        border-bottom: var(--default);
-        padding: var(--padding-small);
-    }
-
-    .genres--mobile {
-        display: none;
-    }
-
-    .genres__hamburger {
-        display: none;
-    }
-
-    .genres__genre {
-        padding: var(--padding-medium);
-        font-size: 1.5em;
-        font-weight: var(--body);
-        text-decoration: none;
-        color: var(--dark);
-    }
-
-    .genres__genre:hover, .active {
-        text-decoration: underline 1px;
-        color: var(--highlight);
-    }
-
     @media screen and (max-width: 1100px) {
-        .genres__genre {
-            font-size: 1.2em;
-        }
-
         .header__title h1 {
             font-size: 2em;
         }
@@ -182,51 +107,6 @@
         .header {
             height: 16vh;
         }
-
-        .genres {
-            display: none;
-        }
-
-        .genres__genre {
-            display: none;
-        }
-
-        .genres--mobile {
-            display: block;
-        }
-
-        .genre__backToFrontpage {
-            position: relative;
-            font-size: 1.4em;
-            margin-top: 0%;
-        }
-
-        .genres__hamburger {
-            display: block;
-            width: 100%;
-            background-color: none;
-        }
-
-        .genres__hamburger-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            padding: var(--padding-small);
-        }
-
-        .genres__hamburger button {
-            color: var(--highlight);
-            background: none; 
-            border: none;
-        }
-
-        .genres__genre--mobile {
-           text-align: center;
-           color: var(--dark);
-           text-decoration: none;
-           padding: var(--padding-xsmall);         
-        } 
         
         .header__title h1 {
             font-size: 1.5em;
