@@ -55,7 +55,8 @@
         },
 
         async created() {
-            await this.sanityFetchGenres(query);
+            await this.sanityFetch(query);
+            this.$store.dispatch('updateGenres', this.result);
         },
 
         computed: {
@@ -75,7 +76,6 @@
         methods: {
             toggleMenu() {
                 this.menuCliked = !this.menuCliked;
-                console.log(this.menuCliked);
             }
         },
 
@@ -246,7 +246,6 @@
             flex-direction: column;
             align-items: center;
             padding-top: var(--margin-medium);
-          
         }
 
         .header__cart-icon img {

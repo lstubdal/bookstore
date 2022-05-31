@@ -4,7 +4,6 @@
 
 <script>
     export default {
-
     }
 </script>
 
@@ -24,5 +23,4 @@
         color: var(--dark);
         text-decoration: 1px underline;
     }
-    
 </style>

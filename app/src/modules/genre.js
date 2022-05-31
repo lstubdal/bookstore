@@ -35,7 +35,7 @@ export default {
         }
     },
 
-    /* actions to avoid changing state directly  */
+    /* use actions to avoid changing state directly  */
     actions: {
         updateGenreBooks({commit}, genresBooks) {
             commit('setGenreBooks', genresBooks);

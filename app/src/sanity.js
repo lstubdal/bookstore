@@ -7,8 +7,3 @@ export default sanityClient({ // create new sanityClient
     useCdn: 'true', // false local / true netlify
     withCredentials: true // for sanity muations
 })
-
-
-// patch
-/* sanity.patch('id')
-        .set.commit etc */

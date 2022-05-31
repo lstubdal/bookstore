@@ -1,7 +1,7 @@
 export default {
     state() {
         return {
-            book: null
+            book: null  // declare empty variable to update later
         }
     },
 
@@ -22,6 +22,4 @@ export default {
             commit('setBook', currentBook);
         }
     }
-
-
 }

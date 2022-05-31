@@ -16,7 +16,8 @@
 
 <script>
     export default {
-        props: {    // tar i mot book object fra bok på frontpage som blir klikket
+        // use book object as props to recieve data of current book
+        props: {   
             book: {
                 type: Object
             }
@@ -37,6 +38,7 @@
         flex-direction: column;
         align-items: center;
     }
+    
     .preview__book {
         height: 100%;
         width: 100%;

@@ -74,7 +74,6 @@
                 this.cart.forEach(book => {
                     this.updateTotalSold(book._id, book);
                 })
-
                 this.$store.dispatch('emptyCartInLocalStorage');
             }
         },

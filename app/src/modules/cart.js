@@ -11,7 +11,6 @@ export default {
             return state.cart;
         },
 
-        // bruke reduce?
         getTotalSum(state) {
             state.totalSum = 0; // reset value for each change in cart
 
@@ -19,32 +18,30 @@ export default {
                 state.totalSum += book.price * book.quantity;
             })
             return state.totalSum
-        },
-/* 
-        getCartLength(state) {
-            return state.cart.length
-        } */
+        }
     },
 
     mutations: {
         add(state, book) {
-            
-           
+            // find the index of book in cart if exists
             const bookIndex = state.cart.findIndex(bookInCart => bookInCart.title === book.title);
 
-            if(bookIndex !== -1) { // if book found in cart
+            // if book exists, increase quantity
+            if(bookIndex !== -1) { 
                 state.cart[bookIndex].quantity += 1;
-
+            
+            // if not, add quantity to book object
             } else {
                 const bookWithQuantity = {
-                    ...book,     // get everything from book obj
-                    quantity: 1  // add quantity property to object
+                    ...book,     // use spread operator to access all info about book
+                    quantity: 1  // then add quantity property to object
                 }
                 state.cart.push(bookWithQuantity);
             }   
         },
 
         remove(state, book) {
+            // find index of book, then use splice to remove it
             state.cart.forEach((bookInCart, index)  => {
                 if (bookInCart.title === book.title) {
                     state.cart.splice(index, 1)
@@ -97,11 +94,13 @@ export default {
         },
 
         updateLocalStorage({ state }){
-            window.localStorage.setItem('books-cart', JSON.stringify(state.cart)); // convert arraty to string for localStorage
+            // convert arraty to string for localStorage
+            window.localStorage.setItem('books-cart', JSON.stringify(state.cart)); 
         },
 
         getFromLocalStorage({ commit }) {
-            if(localStorage.getItem('books-cart') && localStorage.getItem('books-cart').length > 0) {
+            // get books from local storage if not empty
+            if (localStorage.getItem('books-cart') && localStorage.getItem('books-cart').length > 0) {
                 const parsedCartArray = JSON.parse(window.localStorage.getItem('books-cart')) // parse array back to use value 
                 commit('setBooksInCart', parsedCartArray); // set parsed value to cart array
             }
@@ -111,6 +110,5 @@ export default {
             commit('emptyCart') // empty cart when checkout, but not deleting array from local storage
             dispatch('updateLocalStorage');
         }
-
     }
 }

@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<Header />
-		<RouterView :key="$route.fullPath" /> <!-- :key => "force a replacement" of the <router-view> element / component every time a navigation event occurs (instead of reusing it) -->
+		<RouterView :key="$route.fullPath" /> <!-- force a replacement, not best solution -->
 		<Footer />
 	</div>
 </template>
@@ -12,18 +12,13 @@
 
     export default {
 		mounted() {
+			// access data from local storage in app so its availeable on all pages
 			this.$store.dispatch('getFromLocalStorage');
 		},
 		
 		components: {
 			Header,
 			Footer
-		},
-
-		computed: {
-			cart() {
-				return this.$store.getters.getCart;
-			}
 		}
     }
 </script>
@@ -33,7 +28,3 @@
 	@import '../style/fonts.css';
 	@import '../style/style.css';
 </style>
-
-<!--
-	Soruce key: https://vuejs.org/api/built-in-special-attributes.html#ref 
--->
