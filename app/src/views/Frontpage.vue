@@ -1,5 +1,5 @@
 <template>
-    <div v-if="loading" class="loadingPage">Loading all the books...</div> 
+    <LoadingPage v-if="loading"/>
     <div v-else class="frontpage">
         <main class="frontpage__main">
             <!-- make component?? -->
@@ -25,11 +25,12 @@
     import query from '../groq/frontpage.groq?raw';
     import viewMixin from '../mixins/viewMixin';
     import BookPreview from '../components/BookPreview.vue';
+    import LoadingPage from '../components/LoadingPage.vue';
 
     export default {
         data() {
             return {
-                maxPreviewBooks: 4, // limit to 4 books on frontpage
+                maxPreviewBooks: 4, // limit to 4 books per topic on frontpage
             }
         },
 
@@ -37,6 +38,7 @@
 
         components: {
             BookPreview,
+            LoadingPage
         },
 
         async created() {
@@ -59,17 +61,6 @@
 </script>
 
 <style>
-    .loadingPage {
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 5em;
-        color: var(--highlight);
-        font-family: var(--main-font);
-    }
-
     .frontpage {
         display: flex;
         flex-direction: column;
@@ -108,7 +99,6 @@
            font-size: 1.5em;
            text-align: center;
            padding-top: 5%;
-           
        }
     }
 
@@ -121,6 +111,4 @@
            grid-area: 1 / span 2;
        }
     }
-
-
 </style>

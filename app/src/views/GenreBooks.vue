@@ -1,5 +1,5 @@
 <template>
-    <div v-if="loading">LOADING BOOKS</div>
+    <LoadingPage v-if="loading" />
     <div v-else class="genreBooks">
         <BackToFrontpage class="genreBooks__backToFrontpage"/>
         <h1 class="genreBooks__title">{{ currentGenre }}</h1>
@@ -12,8 +12,9 @@
 </template>
 
 <script>
-    import BackToFrontpage from '../components/BackToFrontpage.vue';
     import BookPreview from '../components/BookPreview.vue';
+    import BackToFrontpage from '../components/BackToFrontpage.vue';
+    import LoadingPage from '../components/LoadingPage.vue';
     import query from '../groq/genreBooks.groq?raw';
     import viewMixin from '../mixins/viewMixin';
 
@@ -36,7 +37,8 @@
 
         components: {
             BookPreview,
-            BackToFrontpage
+            BackToFrontpage,
+            LoadingPage
         },
 
         computed: {
