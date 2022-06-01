@@ -49,7 +49,7 @@ export default {
             title: 'Year of publication',
             name: 'yearOfPublication',
             type: 'number',
-            /* valdiation */
+
         },
         {
             title: 'Price',
@@ -75,7 +75,7 @@ export default {
             name: 'totalSold',
             type: 'number',
             description: 'Updated from website',
-            /* readOnly: true */
+            readOnly: true
         }
     ]
 }
